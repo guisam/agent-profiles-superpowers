@@ -1,0 +1,2 @@
+# Store every file byte-exact: package digests and freeze hashes depend on the bytes.
+* -text

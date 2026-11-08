@@ -1,0 +1,24 @@
+version: 3
+default_profile: base
+default_role: brainstormer
+models:
+  claude-sonnet-5-5: {profile: base}
+  claude-haiku-5-5: {profile: base}
+families: {}
+roles:
+  brainstormer:
+    file: roles/brainstormer.md
+    skills:
+      required: [brainstorming]
+      available: []
+skills:
+  brainstorming:
+    package: "@apsp/brainstorming-upstream"
+    version: "7.0.2"
+assignments:
+  sonnet-candidate:
+    when: {model: claude-sonnet-5-5, role: brainstormer}
+    bindings:
+      skills.brainstorming:
+        package: "@apsp/brainstorming-sonnet-5-5"
+        version: "0.1.0"

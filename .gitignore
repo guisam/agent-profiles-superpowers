@@ -1,0 +1,7 @@
+private/
+evaluations/brainstorming/fixture/node_modules/
+graft/
+# private trial ledgers: hold host agent IDs and transcript names
+evaluations/*/runs.jsonl
+evaluations/*/runs-*.jsonl
+__pycache__/

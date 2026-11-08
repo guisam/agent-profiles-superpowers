@@ -1,0 +1,12 @@
+schema_version: 1
+package:
+  name: "@apsp/brainstorming-sequencing"
+  version: "0.1.0"
+  type: skill
+  description: "Brainstorming skill (obra/superpowers v7.0.2, 22f0b46) with one sequencing clarification of the 'one sensible way' rule. Resources unchanged. See companion experiments/brainstorming-clarify-164/TREATMENT.md."
+  license: MIT
+entrypoint: SKILL.md
+behavior:
+  delivery: instruction
+  hosts: []
+  effects: [commands]

@@ -1,0 +1,50 @@
+{
+  "experiment": "apsp-bs-002",
+  "control": "full",
+  "treatment": "seq",
+  "arms": {
+    "full": {
+      "consumer": "C:/workspace/agent-profiles-superpowers/private/consumers/c325a2c",
+      "package": "C:/workspace/agent-profiles-superpowers/packages/brainstorming-upstream/7.0.2"
+    },
+    "seq": {
+      "consumer": "C:/workspace/agent-profiles-superpowers/private/consumers/c7a5baa",
+      "package": "C:/workspace/agent-profiles-superpowers/packages/brainstorming-sequencing/0.1.0"
+    }
+  },
+  "store": "C:/workspace/agent-profiles-superpowers/private/store",
+  "trust": "C:/workspace/agent-profiles-superpowers/private/trust.trial.yaml",
+  "models": {
+    "children": "claude-sonnet-5-5 (Agent tool model: sonnet)",
+    "graders": "claude-opus-5-5 (Agent tool model: opus)"
+  },
+  "ap_runtime": "@guisam/agent-profiles@0.19.4",
+  "limits": {
+    "child_runs": 57,
+    "retries": 5,
+    "grader_runs": 20
+  },
+  "decision": {
+    "primary": [
+      [
+        "S1b-later-one-way-undelegated",
+        "M3"
+      ],
+      [
+        "S1c-later-one-way-delegated",
+        "M3"
+      ]
+    ],
+    "overcorrection": [
+      "S1a-first-message-nothing-open",
+      "M2"
+    ],
+    "delegation": [
+      "S1c-later-one-way-delegated",
+      "M2"
+    ],
+    "ceiling": 5,
+    "margin": 3,
+    "void_failure_share": 0.1
+  }
+}

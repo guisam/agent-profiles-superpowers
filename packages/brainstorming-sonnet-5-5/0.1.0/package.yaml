@@ -1,0 +1,12 @@
+schema_version: 1
+package:
+  name: "@apsp/brainstorming-sonnet-5-5"
+  version: "0.1.0"
+  type: skill
+  description: "UNVALIDATED candidate for claude-sonnet-5-5 only. Derived from obra/superpowers brainstorming v7.0.2 (22f0b46) with two sentences removed; resources unchanged. See companion PROVENANCE.md."
+  license: MIT
+entrypoint: SKILL.md
+behavior:
+  delivery: instruction
+  hosts: []
+  effects: [commands]

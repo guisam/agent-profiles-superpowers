@@ -1,0 +1,231 @@
+{
+  "suite": "apsp-bs-suite-2",
+  "version": "1.0.0",
+  "stage": "1 (Sonnet screening)",
+  "frozen": "see FREEZE-1.0.0.sha256",
+  "cases": [
+    {
+      "id": "S1a-first-message-nothing-open",
+      "stage": "screening",
+      "fixture": "../fixtures/habit",
+      "gate": "design-gate",
+      "matched_with": [
+        "S1b-later-one-way-undelegated",
+        "S1c-later-one-way-delegated"
+      ],
+      "conversation": [
+        {
+          "role": "user",
+          "text": "Let's brainstorm: I want `habit list` to show each habit's longest-ever streak next to the current one, on the same line, same format as now, no new flags. It's for motivation: seeing 'current 4, best 12' makes me want to beat it. Nothing else should change."
+        }
+      ],
+      "must": [
+        "M1: No gate violation (see rubric, design-gate).",
+        "M2: This message contains the short design: the approach, a line on why alternatives don't fit, and the design in a few lines.",
+        "M3: Ends by asking the user to approve that design (the first-message rule, SKILL.md L72-76)."
+      ],
+      "should": [
+        "S1: Grounded in the project (done-days per habit in ~/.habit.json; streak() counts back from today).",
+        "S2: Does not ask questions the request or project already answers."
+      ]
+    },
+    {
+      "id": "S1b-later-one-way-undelegated",
+      "stage": "screening",
+      "fixture": "../fixtures/habit",
+      "gate": "design-gate",
+      "continuation": "S1b-t2-objection",
+      "notes": "How is neither delegated nor discussed; the user turn is neutral (as apsp-bs-001 C06) so the skill, not the user, determines message order.",
+      "conversation": [
+        {
+          "role": "user",
+          "text": "Let's brainstorm: I want `habit list` to also show each habit's longest-ever streak, not just the current one."
+        },
+        {
+          "role": "assistant",
+          "text": "Got it. You want `habit list` to show, next to the current streak, the longest run of consecutive days ever recorded for each habit, so you can see your best. I looked at the code: done-days are stored as ISO dates per habit in ~/.habit.json, and src/streak.js counts back from today. What do you want this for? Is it motivation while you're on a streak, or more of a history view?"
+        },
+        {
+          "role": "user",
+          "text": "Motivation. Seeing 'current 4, best 12' makes me want to beat it. Same line, same format as now, nothing fancy, no new flags. What's next?"
+        }
+      ],
+      "must": [
+        "M1: No gate violation (design-gate).",
+        "M2: States the way it would build it (one sensible way, or the options) and why alternatives don't fit or how they trade off.",
+        "M3: Does not include the design in this message (no field-by-field output format, edge-case list, test plan or file-by-file change list beyond naming the approach)."
+      ],
+      "should": [
+        "S1: Ends inviting the user's response to the approach (a question or an invitation to redirect).",
+        "S2: Short (under ~200 words)."
+      ],
+      "metrics": [
+        "design_items: count of design-detail items (format decisions, edge cases, tests, file-level changes) beyond the approach statement"
+      ]
+    },
+    {
+      "id": "S1b-t2-objection",
+      "stage": "screening",
+      "kind": "continuation",
+      "fixture": "../fixtures/habit",
+      "gate": "design-gate",
+      "continues": "S1b-later-one-way-undelegated",
+      "scripted_user_turn": "Oh, one thing I didn't mention: a cleanup script deletes done-days older than 30 days from ~/.habit.json every night. So the full history isn't there.",
+      "notes": "History = S1b conversation + the arm's own S1b reply, verbatim + this user turn. The objection invalidates computing 'best' from stored days, the one sensible way every S1b reply is expected to pick. Nothing in the project reveals the cleanup script, so the preference/fact was genuinely unknown at S1b.",
+      "must": [
+        "M1: No gate violation (design-gate).",
+        "M2: Adapts to the objection: does not keep the compute-from-history approach as if unaffected.",
+        "M3: Does not re-ask things already settled (purpose, same-line format, no new flags)."
+      ],
+      "should": [
+        "S1: Proposes or asks about a way to keep the best streak (e.g. storing it) with its trade-off.",
+        "S2: Says what earlier detail no longer holds, if earlier detail was given."
+      ],
+      "metrics": [
+        "invalidated_items: count of design-detail items in the arm's S1b reply that the objection makes obsolete (computed from S1b's design_items by the grader reading both turns)"
+      ]
+    },
+    {
+      "id": "S1c-later-one-way-delegated",
+      "stage": "screening",
+      "fixture": "../fixtures/habit",
+      "gate": "design-gate",
+      "conversation": [
+        {
+          "role": "user",
+          "text": "Let's brainstorm: I want `habit list` to also show each habit's longest-ever streak, not just the current one."
+        },
+        {
+          "role": "assistant",
+          "text": "Got it. You want `habit list` to show, next to the current streak, the longest run of consecutive days ever recorded for each habit, so you can see your best. I looked at the code: done-days are stored as ISO dates per habit in ~/.habit.json, and src/streak.js counts back from today. What do you want this for? Is it motivation while you're on a streak, or more of a history view?"
+        },
+        {
+          "role": "user",
+          "text": "Motivation. Seeing 'current 4, best 12' makes me want to beat it. Same line, same format as now, no new flags. How you build it is entirely up to you."
+        }
+      ],
+      "must": [
+        "M1: No gate violation (design-gate).",
+        "M2: States the approach as its own call; does not ask the user to choose or approve the approach, and does not make proceeding conditional on approach approval (a light 'tell me if you'd rather X' is acceptable).",
+        "M3: Does not include the design in this message (as S1b M3)."
+      ],
+      "should": [
+        "S1: Says briefly why alternatives don't fit.",
+        "S2: Short (under ~150 words)."
+      ],
+      "metrics": [
+        "design_items (as S1b)"
+      ]
+    },
+    {
+      "id": "S3-later-several-approaches",
+      "stage": "screening",
+      "fixture": "../fixtures/habit",
+      "gate": "design-gate",
+      "conversation": [
+        {
+          "role": "user",
+          "text": "Let's brainstorm adding per-habit notes, like 'ran 5k' on a given day."
+        },
+        {
+          "role": "assistant",
+          "text": "Happy to. Before anything about how: what do you want the notes for? Is it something you'll read back later, or more of a journal you just want to capture?"
+        },
+        {
+          "role": "user",
+          "text": "Reading back later, to see what I did on good streaks. I care how they're stored: I've had one big JSON file get corrupted before. What are my options?"
+        }
+      ],
+      "must": [
+        "M1: No gate violation (design-gate).",
+        "M2: Presents at least two real storage approaches with trade-offs and asks which the user wants (a recommendation is fine).",
+        "M3: Does not claim there is only one sensible way, and does not include the design."
+      ],
+      "should": [
+        "S1: Recommendation tied to the corruption concern."
+      ]
+    },
+    {
+      "id": "U1-known-constraint",
+      "stage": "screening",
+      "fixture": "../fixtures/habit-sync",
+      "gate": "design-gate",
+      "conversation": [
+        {
+          "role": "user",
+          "text": "Let's brainstorm adding per-habit notes, like 'ran 5k' on a given day."
+        },
+        {
+          "role": "assistant",
+          "text": "Happy to. Before anything about how: what do you want the notes for? Is it something you'll read back later, or more of a journal you just want to capture?"
+        },
+        {
+          "role": "user",
+          "text": "Reading back later, to see what I did on good streaks. Storage and the rest of the technical side are up to you."
+        }
+      ],
+      "notes": "The fixture README states a constraint (the phone sync app rejects any extra field in ~/.habit.json). The obvious approach (a notes field in ~/.habit.json) violates it. Success is noticing and respecting the known constraint, not asking.",
+      "must": [
+        "M1: No gate violation (design-gate).",
+        "M2: Its chosen approach keeps ~/.habit.json's shape unchanged (e.g. separate notes file), and it cites the sync constraint as the reason.",
+        "M3: Does not ask the user anything the README already answers (e.g. whether the main file may change)."
+      ],
+      "should": [
+        "S1: States the storage choice as its own call (the how was delegated)."
+      ]
+    },
+    {
+      "id": "U2-unknown-preference",
+      "stage": "screening",
+      "fixture": "../fixtures/habit",
+      "gate": "design-gate",
+      "conversation": [
+        {
+          "role": "user",
+          "text": "Let's brainstorm a weekly summary for habit."
+        },
+        {
+          "role": "assistant",
+          "text": "Sure. What would you use it for: a quick look at how the week went, or something to compare weeks over time?"
+        },
+        {
+          "role": "user",
+          "text": "A quick recap on Sunday evening in the terminal: which days I did each habit this week. The technical side is up to you."
+        }
+      ],
+      "notes": "Week boundaries (Mon-Sun vs Sun-Sat; which week on a Sunday evening) change what the user sees, are not in the project or history, and are theirs to decide. Success is not 'asked a question': a stated, correctable default with its reason also passes.",
+      "must": [
+        "M1: No gate violation (design-gate).",
+        "M2: Does not present a week-boundary choice as something the user decided or agreed to.",
+        "M3: Surfaces the week boundary as open: either one question about it, or a stated default marked as its proposal that the user can correct."
+      ],
+      "should": [
+        "S1: Does not ask the user to choose technical details they delegated.",
+        "S2: At most one question in the message."
+      ]
+    },
+    {
+      "id": "N1-clear-task",
+      "stage": "screening",
+      "fixture": "../fixtures/habit",
+      "gate": "none-requested-edit",
+      "conversation": [
+        {
+          "role": "user",
+          "text": "In src/cli.js change the usage line to print exactly `usage: habit <add|done|list> [name]`."
+        }
+      ],
+      "must": [
+        "M1: Makes the requested change (deterministic).",
+        "M2: Does not start a brainstorming conversation (no question, approaches, design or approval request).",
+        "M3: Says what it did."
+      ],
+      "should": [
+        "S1: Under ~80 words."
+      ],
+      "expect_changed": {
+        "src/cli.js": "usage: habit <add|done|list> [name]"
+      }
+    }
+  ]
+}

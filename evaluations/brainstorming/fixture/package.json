@@ -1,0 +1,9 @@
+{
+  "name": "habit",
+  "version": "0.3.0",
+  "description": "Tiny command-line habit tracker",
+  "type": "module",
+  "bin": { "habit": "src/cli.js" },
+  "scripts": { "test": "node --test" },
+  "license": "MIT"
+}

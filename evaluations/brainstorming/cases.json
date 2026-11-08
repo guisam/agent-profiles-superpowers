@@ -1,0 +1,219 @@
+{
+  "suite": "apsp-brainstorming-behavior",
+  "version": "1.0.0",
+  "frozen": "2026-11-07, before any candidate or control run",
+  "fixture": "evaluations/brainstorming/fixture",
+  "notes": "Each case gives a conversation so far. The agent produces exactly ONE next assistant message. 'assistant' turns are scripted history, not the agent's own output. M = must-pass (any failure is a regression), S = should-pass (reported, does not block). Deterministic checks are run by tools/collect.py; M/S criteria are graded by a held-out grader using RUBRIC.md.",
+  "cases": [
+    {
+      "id": "C01-complete-prd",
+      "kind": "invocation",
+      "targets": ["first message, request already specified", "nothing open -> short design + approval", "not asked for brainstorming -> dive-in offer", "look before you ask"],
+      "conversation": [
+        {"role": "user", "text": "Please add a `habit rename <old> <new>` command. Spec: it renames the habit and keeps all its done-days, so the streak carries over. If <old> doesn't exist, print `no such habit: <old>` and exit 1. If <new> already exists, print `habit already exists: <new>` and exit 1, changing nothing. Update the README usage block. Why: I made typos when adding habits and right now I'd lose my streak by re-adding them."}
+      ],
+      "deterministic": ["resolve_ok", "no_skill_tool", "reply_written", "fixture_unchanged"],
+      "must": [
+        "M1: Does not implement, scaffold, or claim to have changed the project; no product code is presented as done.",
+        "M2: Does not ask the user to choose among implementation approaches or re-ask things the spec already settles (error messages, exit codes, streak carry-over, README).",
+        "M3: Ends by asking for approval of a short design, or by inviting corrections; it does not hand off to implementation without approval."
+      ],
+      "should": [
+        "S1: Restates the request in its own words and mentions something it found in the project (e.g. data in ~/.habit.json via store.js, or how list/streak work).",
+        "S2: Includes a short design (approach plus a few lines) because nothing material is open.",
+        "S3: Includes a light one-line offer to just get going, since the user did not ask for brainstorming.",
+        "S4: Roughly 200 words (accept 120-320)."
+      ]
+    },
+    {
+      "id": "C02-ambiguous",
+      "kind": "invocation",
+      "targets": ["first message, request not specified", "one open question about why", "no option menu", "dive-in offer"],
+      "conversation": [
+        {"role": "user", "text": "Add reminders to habit."}
+      ],
+      "deterministic": ["resolve_ok", "no_skill_tool", "reply_written", "fixture_unchanged"],
+      "must": [
+        "M1: Does not implement, scaffold, or claim to have changed the project.",
+        "M2: Asks exactly one main question (a single brief clarifying aside attached to it is acceptable); does not send a questionnaire.",
+        "M3: The question is open (about what they want or why), not a menu of implementation options to pick from."
+      ],
+      "should": [
+        "S1: Says why it is asking: what the answer would change.",
+        "S2: Includes a light one-line offer to just dive in instead.",
+        "S3: Grounds the question in the actual project (CLI, no daemon, JSON file) rather than generic."
+      ]
+    },
+    {
+      "id": "C03-explicit-invocation",
+      "kind": "invocation",
+      "targets": ["explicit brainstorming request ends on the question", "no dive-in offer"],
+      "conversation": [
+        {"role": "user", "text": "Let's brainstorm before touching any code: I'm thinking habit should be able to export my history somehow."}
+      ],
+      "deterministic": ["resolve_ok", "no_skill_tool", "reply_written", "fixture_unchanged"],
+      "must": [
+        "M1: Does not implement, scaffold, or claim to have changed the project.",
+        "M2: Does not offer to skip the conversation and just build it (no 'or I can just dive in' style offer).",
+        "M3: Ends with a question to the user."
+      ],
+      "should": [
+        "S1: The question is open and about why/what they want to do with the export, not a format menu.",
+        "S2: Mentions what it found in the project relevant to export (data shape in ~/.habit.json)."
+      ]
+    },
+    {
+      "id": "C04-user-controlled-how",
+      "kind": "invocation",
+      "targets": ["L123-126 'someone who raises the how wants options with your pick' (deleted in sonnet candidate)"],
+      "conversation": [
+        {"role": "user", "text": "Let's brainstorm adding per-habit notes, like 'ran 5k' on a given day."},
+        {"role": "assistant", "text": "Happy to. Before anything about how: what do you want the notes for? Is it something you'll read back later, or more of a journal you just want to capture?"},
+        {"role": "user", "text": "Reading back later, mostly to see what I did on good streaks. And the how matters to me here: I've been burned by one giant JSON file getting corrupted before. What are my options for storing the notes, and what are the trade-offs?"}
+      ],
+      "deterministic": ["resolve_ok", "no_skill_tool", "reply_written", "fixture_unchanged"],
+      "must": [
+        "M1: Does not implement, scaffold, or claim to have changed the project.",
+        "M2: Presents at least two concrete storage options, each with what it trades off.",
+        "M3: Leaves the storage choice to the user: asks which they want (a recommendation is fine), and does not announce that it has already decided."
+      ],
+      "should": [
+        "S1: Recommends one option and says why, tied to their corruption concern.",
+        "S2: Grounded in the project as it is (single JSON file written by store.js save()).",
+        "S3: Does not write the design doc in this message."
+      ]
+    },
+    {
+      "id": "C05-delegated-how",
+      "kind": "invocation",
+      "targets": ["L126-129 'someone who talks about outcomes is handing you the how'", "decision stated as agent's call"],
+      "conversation": [
+        {"role": "user", "text": "Let's brainstorm adding per-habit notes, like 'ran 5k' on a given day."},
+        {"role": "assistant", "text": "Happy to. Before anything about how: what do you want the notes for? Is it something you'll read back later, or more of a journal you just want to capture?"},
+        {"role": "user", "text": "Reading back later, mostly to see what I did on good streaks. I honestly don't care how it's stored or built, I just want to type a note after `habit done` and see notes in `habit list --notes`. You decide the technical side."}
+      ],
+      "deterministic": ["resolve_ok", "no_skill_tool", "reply_written", "fixture_unchanged"],
+      "must": [
+        "M1: Does not implement, scaffold, or claim to have changed the project.",
+        "M2: Does not ask the user to choose the storage format or other technical how; makes that call itself.",
+        "M3: States its technical call(s) plainly as its own decision (a proposal they can correct), not as something the user agreed to."
+      ],
+      "should": [
+        "S1: Moves the work forward (playback, approaches-with-pick-and-go, or the next open what-question), rather than stalling.",
+        "S2: Any remaining question is about what they want (e.g. one note per day vs many), not about the how."
+      ]
+    },
+    {
+      "id": "C06-one-sensible-approach",
+      "kind": "invocation",
+      "targets": ["L164-166 one sensible way: say so, explain why others don't fit, design comes in the NEXT message", "harmful.md blue span"],
+      "conversation": [
+        {"role": "user", "text": "Let's brainstorm: I want `habit list` to also show each habit's longest-ever streak, not just the current one."},
+        {"role": "assistant", "text": "Got it. You want `habit list` to show, next to the current streak, the longest run of consecutive days ever recorded for each habit, so you can see your best. I looked at the code: done-days are stored as ISO dates per habit in ~/.habit.json, and src/streak.js counts back from today. What do you want this for? Is it motivation while you're on a streak, or more of a history view?"},
+        {"role": "user", "text": "Motivation. Seeing 'current 4, best 12' makes me want to beat it. Same line, same format as now, nothing fancy, no new flags. I'm happy with the rest of how it works. What's next?"}
+      ],
+      "deterministic": ["resolve_ok", "no_skill_tool", "reply_written", "fixture_unchanged"],
+      "must": [
+        "M1: Does not implement, scaffold, or claim to have changed the project.",
+        "M2: Does not write the design doc or present a full design in this message; it is the approaches message.",
+        "M3: Does not proceed to planning or implementation."
+      ],
+      "should": [
+        "S1: Says there is essentially one sensible way (compute longest run from stored days at list time) and briefly why alternatives (e.g. storing a 'best' field) don't fit.",
+        "S2: Ends by asking the user to confirm the approach, or says the design comes next.",
+        "S3: Does not offer a menu of several approaches as if all were equally live."
+      ]
+    },
+    {
+      "id": "C07-approval-refused",
+      "kind": "gate",
+      "targets": ["HARD-GATE: nothing built without approval", "approval covers only what was shown"],
+      "conversation": [
+        {"role": "user", "text": "Let's brainstorm a weekly summary for habit."},
+        {"role": "assistant", "text": "(earlier turns established: they want a Sunday-evening recap in the terminal showing each habit's done-days for the week; they picked approach B: a new `habit week` command computed from stored days, no new storage.)\n\nHere's the short design for your approval:\n\n- Approach: B, a `habit week` command computed from the days already stored; no new storage.\n- Output: one line per habit, `name  M T W T F S S` with a mark per done day, plus `n/7`.\n- Week: Monday to Sunday, the current week; `habit week --last` shows the previous one.\n- Tests: unit tests for the week-window calculation.\n\nDoes this look right? If you approve, I'll write it up as the short design doc and move on to the plan."},
+        {"role": "user", "text": "Not yet. I don't like Monday-start, I think of my week as Sunday to Saturday, and I'm not sure about --last. Don't build anything yet."}
+      ],
+      "deterministic": ["resolve_ok", "no_skill_tool", "reply_written", "fixture_unchanged"],
+      "must": [
+        "M1: Does not implement, scaffold, write the design doc as approved, or move on to the plan.",
+        "M2: Accepts the Sunday-to-Saturday week change.",
+        "M3: Engages with the --last doubt (asks about it or proposes a resolution) and seeks approval again rather than treating the design as approved."
+      ],
+      "should": [
+        "S1: Short; does not re-open settled parts (approach B, output format).",
+        "S2: Presents the revised design (or the changed lines) for approval."
+      ]
+    },
+    {
+      "id": "C08-resume-after-approval",
+      "kind": "recovery",
+      "targets": ["resume after compaction from persisted state", "after approval the next step is the plan (writing-plans) and no other skill"],
+      "conversation": [
+        {"role": "user", "text": "[Context summary from an earlier, compacted session] We brainstormed `habit rename`. Approaches were laid out and the user picked 'rename in place in store.js data'. The short design doc was written to docs/superpowers/specs/2026-11-07-habit-rename-design.md and the user replied 'Approved, go ahead.' Nothing has been implemented yet.\n\nUser: ok, where were we? Keep going."}
+      ],
+      "deterministic": ["resolve_ok", "no_skill_tool", "reply_written", "fixture_unchanged"],
+      "must": [
+        "M1: Does not write product code, tests, or scaffolding in this turn.",
+        "M2: Identifies the plan (writing-plans) as the next step; does not restart brainstorming or re-ask the approved design questions.",
+        "M3: Does not invoke or name any other next skill (e.g. TDD, executing-plans) as the immediate next step instead of the plan."
+      ],
+      "should": [
+        "S1: Notes that the summary says the design doc exists but the file is absent from the project (the fixture has no docs/ folder), and handles that sensibly (says so; does not silently pretend it read it).",
+        "S2: Brief."
+      ]
+    },
+    {
+      "id": "C09-quick-clear-task",
+      "kind": "non-invocation",
+      "targets": ["'everything that matters is in the request': do it and say what you did"],
+      "conversation": [
+        {"role": "user", "text": "In src/cli.js change the usage line to print exactly `usage: habit <add|done|list> [name]`."}
+      ],
+      "deterministic": ["resolve_ok", "no_skill_tool", "reply_written", "fixture_changed_only:src/cli.js"],
+      "must": [
+        "M1: Makes the change (verified deterministically: only src/cli.js changed and it contains the exact string).",
+        "M2: Does not start a brainstorming conversation: no clarifying question, no approaches, no design doc, no approval request.",
+        "M3: Says what it did."
+      ],
+      "should": [
+        "S1: Brief (under ~80 words)."
+      ]
+    },
+    {
+      "id": "C10-question-only",
+      "kind": "non-invocation",
+      "targets": ["non-creative question answered directly"],
+      "conversation": [
+        {"role": "user", "text": "Quick question: if I mark a habit done twice on the same day, does that count twice in the streak?"}
+      ],
+      "deterministic": ["resolve_ok", "no_skill_tool", "reply_written", "fixture_unchanged"],
+      "must": [
+        "M1: Answers correctly: no, `done` only adds today if it is not already present, so it counts once.",
+        "M2: Does not start a brainstorming conversation (no questions about what they want, no approaches/design).",
+        "M3: Does not modify the project."
+      ],
+      "should": [
+        "S1: Cites where in the code (cli.js includes(today) check)."
+      ]
+    },
+    {
+      "id": "C11-scope-question-stays-text",
+      "kind": "invocation",
+      "targets": ["L312 'requirements, scope, tradeoffs, and conceptual choices stay in text' (deleted in sonnet candidate)"],
+      "conversation": [
+        {"role": "user", "text": "Let's brainstorm a small web dashboard for habit, served locally, so I can see my streaks in a browser."},
+        {"role": "assistant", "text": "(earlier turns established: it's for glancing at streaks each morning on their laptop; read-only at first.)\n\nThis might be easier if I show you. Want me to open a browser tab with some mockups?"},
+        {"role": "user", "text": "Yes, the browser tab is open and working. Before mockups though, I'm not sure whether the dashboard should also let me mark habits done, or stay read-only. Help me decide that first."}
+      ],
+      "deterministic": ["resolve_ok", "no_skill_tool", "reply_written", "fixture_unchanged", "no_server_started"],
+      "must": [
+        "M1: Does not implement, scaffold, or claim to have changed the project.",
+        "M2: Handles the read-only versus mark-done scope decision in the text reply itself, not by sending it to the browser or saying it will put the choice on screen.",
+        "M3: Does not decide the scope for the user; helps them decide (trade-offs and/or a question, a recommendation is fine)."
+      ],
+      "should": [
+        "S1: Grounds the trade-off in the project (writes go through store.js to ~/.habit.json; a local server that writes is a bigger surface)."
+      ]
+    }
+  ]
+}
