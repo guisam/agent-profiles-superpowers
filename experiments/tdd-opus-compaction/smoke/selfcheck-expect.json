@@ -1,0 +1,18 @@
+{
+ "D1/project": {"hidden_pass": false, "mutation_fails_on_original": false, "changed": []},
+ "D1/good": {"hidden_pass": true, "mutation_fails_on_original": true, "mutation_passes_on_final": true, "mutation_tests": ["test/discount.test.js"]},
+ "D1/alt": {"hidden_pass": true, "mutation_fails_on_original": true, "mutation_passes_on_final": true, "mutation_tests": ["test/percent.test.js"]},
+ "D1/bad": {"hidden_pass": true, "mutation_fails_on_original": false, "mutation_tests": []},
+ "D2/project": {"hidden_pass": false},
+ "D2/good": {"hidden_pass": true, "params": ["text", "n"], "public_names": ["truncate_words", "word_count"]},
+ "D2/alt": {"hidden_pass": true, "params": ["text", "n"]},
+ "D2/bad": {"hidden_pass": false, "params": ["text", "n", "ellipsis"]},
+ "D3/project": {"hidden_pass": false},
+ "D3/good": {"hidden_pass": true},
+ "D3/alt": {"hidden_pass": true},
+ "D3/bad": {"hidden_pass": false},
+ "D4/project": {"digest_enabled": false, "changed": []},
+ "D4/good": {"digest_enabled": true, "test_mentions_behavior": true, "changed": ["config/settings.toml", "tests/test_configured_digest.py"]},
+ "D4/alt": {"digest_enabled": true, "changed": ["config/settings.toml"]},
+ "D4/bad": {"digest_enabled": true, "changed": ["notify/digest.py"]}
+}

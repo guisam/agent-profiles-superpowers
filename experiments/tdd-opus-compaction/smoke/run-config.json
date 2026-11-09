@@ -1,0 +1,27 @@
+{
+ "experiment": "apsp-tdd-002",
+ "harness": "2.3.0 (wraps 2.2.2)",
+ "seed": 20261109,
+ "child_model": "claude-opus-5-5",
+ "child_effort": "medium",
+ "child_budget_usd": 0.50,
+ "child_timeout_s": 1200,
+ "grader_model": "claude-opus-5-5",
+ "grader_effort": "medium",
+ "grader_budget_usd": 0.0,
+ "grader_timeout_s": 1,
+ "stage0": {
+  "order": [["D1", "full", 0], ["D1", "cand", 0]],
+  "bundle_reps": [],
+  "graded_cases": [],
+  "limits": {"child_runs": 2, "retries": 0, "retries_per_slot": 0, "grader_runs": 0}
+ },
+ "stage1": {
+  "cases": ["D1", "D2", "D3a", "D3b", "D4"],
+  "reps": 2,
+  "graded_cases": [],
+  "limits": {"child_runs": 22, "retries": 2, "retries_per_slot": 1, "grader_runs": 0}
+ },
+ "decision_rule": "Descriptive only (PROPOSAL tier C): per-case all-M counts out of 2 per arm, candidate-only failures, D4 categories, usage by category. Language: 'no difference observed in these development runs' or 'candidate-only failures in X'. Never 'validated'.",
+ "maxima_note": "Approved tier C: <= 24 child runs total (2 smoke + 20 + 2 retries), 0 graders, ceiling $12 (0.50 cap per run)."
+}

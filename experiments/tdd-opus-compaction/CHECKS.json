@@ -1,0 +1,118 @@
+{
+ "coverage": {
+  "upstream": {
+   "covered": 31,
+   "total": 31,
+   "missing": {}
+  },
+  "sonnet": {
+   "covered": 31,
+   "total": 31,
+   "missing": {}
+  },
+  "opus": {
+   "covered": 31,
+   "total": 31,
+   "missing": {}
+  }
+ },
+ "sections": {},
+ "subsequence": {
+  "sonnet": {
+   "inserted_lines": [
+    "**Fails for another reason?** Go back to RED and correct the test."
+   ],
+   "out_of_order": []
+  },
+  "opus": {
+   "inserted_lines": [
+    "Work one behavior at a time, in this order: RED, Verify RED, GREEN, Verify GREEN,",
+    "REFACTOR, then the next failing test.",
+    "**MANDATORY. Never skip.** Run the test.",
+    "**Fails for another reason?** Go back to RED and correct the test.",
+    "**MANDATORY.** Run the test.",
+    "- **Minimal:** one thing. \"and\" in name? Split it.",
+    "- **Clear:** name describes behavior.",
+    "- **Shows intent:** demonstrates desired API."
+   ],
+   "out_of_order": []
+  }
+ },
+ "frontmatter_identical": {
+  "upstream": true,
+  "sonnet": true,
+  "opus": true
+ },
+ "forbidden_tokens": {
+  "upstream": [],
+  "sonnet": [],
+  "opus": []
+ },
+ "resources": {
+  "upstream": {
+   "writing-good-tests.md": true,
+   "LICENSE": true,
+   "link_present": true,
+   "names_writing_skills": true
+  },
+  "sonnet": {
+   "writing-good-tests.md": true,
+   "LICENSE": true,
+   "link_present": true,
+   "names_writing_skills": true
+  },
+  "opus": {
+   "writing-good-tests.md": true,
+   "LICENSE": true,
+   "link_present": true,
+   "names_writing_skills": true
+  }
+ },
+ "inbound": {
+  "upstream": [],
+  "sonnet": [],
+  "opus": []
+ },
+ "contract_only_draft": {
+  "contract_ids": 23,
+  "missing_ids": [],
+  "omitted_non_contract": [
+   "A4",
+   "P1",
+   "P2",
+   "D1",
+   "D2",
+   "X1"
+  ]
+ },
+ "sizes": {
+  "upstream": {
+   "bytes": 9578,
+   "words": 1475,
+   "lines": 330,
+   "resource_bytes": 8268,
+   "sha256": "64b03fce4aee5a97a93160cea8111f3ba13a17b7c001db4bd5836d67fd10705d"
+  },
+  "sonnet": {
+   "bytes": 7025,
+   "words": 1182,
+   "lines": 208,
+   "resource_bytes": 8268,
+   "sha256": "4117a24ece8a96e14c2f286dd39ebba79fd98104e551ac28328159229af98fd4"
+  },
+  "opus": {
+   "bytes": 6928,
+   "words": 1170,
+   "lines": 201,
+   "resource_bytes": 8268,
+   "sha256": "4685820f8a2c44cee4d7ff9ac1b190c379dfe7fba9eea6043603e7b0bac35e14"
+  },
+  "contract_only_draft": {
+   "bytes": 2370,
+   "words": 399,
+   "lines": 42,
+   "resource_bytes": null,
+   "note": "frontmatter + body, excluding the HTML comment banner"
+  }
+ }
+}

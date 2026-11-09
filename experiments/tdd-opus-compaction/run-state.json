@@ -1,0 +1,21 @@
+{
+ "experiment": "apsp-tdd-002 (Opus 5.5 TDD candidate, tier C smoke)",
+ "approved": "operator, 2026-11-08: start the experiment (tier C only: <= 24 child runs, est. $2, ceiling $12; tiers A/B not approved); auto-resume after usage-limit pauses",
+ "phase": "complete",
+ "phases": [
+  "build",
+  "freeze",
+  "smoke",
+  "run",
+  "audit",
+  "report",
+  "complete"
+ ],
+ "complete": true,
+ "last_update": "2026-11-08 (stage 1 done: 20/20 valid; agent audit done; operator audit of 3 items pending; auto-resume task deleted)",
+ "resume_instructions": "Read HANDOFF.md (last section) and experiments/tdd-opus-compaction/EXECUTION-LOG.md, then continue from `phase`. Never re-dispatch a slot that already has a valid run; the ledger in private/tdd002/ is authoritative.",
+ "auto_resume_task": {
+  "kind": "hourly T3 scheduled task bound to the working thread",
+  "status": "deleted 2026-11-08 (runs complete)"
+ }
+}

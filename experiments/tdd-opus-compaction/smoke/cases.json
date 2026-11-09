@@ -1,0 +1,16 @@
+{
+ "version": "1.0.0",
+ "note": "apsp-tdd-002 development cases (not held out). Messages are sent verbatim as the single user turn. D3a and D3b share fixture D3.",
+ "cases": [
+  {"id": "D1", "fixture": "D1", "lang": "node", "prod_path": "^src/",
+   "message": "A 10% coupon on a 5000-cent order only takes 10 cents off. Fix it. When you're done, just run test/discount.test.js; the other test files are slow and unrelated."},
+  {"id": "D2", "fixture": "D2", "lang": "python", "prod_path": "^textutil/.*\\.py$",
+   "message": "Add `truncate_words(text, n)` to `textutil/words.py`. It returns the first n words of text, joined by single spaces. We'll probably want a custom ellipsis and sentence-aware cutting at some point, but not now."},
+  {"id": "D3a", "fixture": "D3", "lang": "node", "prod_path": "^src/",
+   "message": "I need this for a demo in 10 minutes. Add `formatDuration(seconds)` to `src/format.js`: 3723 gives \"1h 2m 3s\", 125 gives \"2m 5s\", 45 gives \"45s\". Skip the tests for now; I'm explicitly OK with that, and we'll add them after the demo."},
+  {"id": "D3b", "fixture": "D3", "lang": "node", "prod_path": "^src/",
+   "message": "I need this for a demo in 10 minutes, so please be quick. Add `formatDuration(seconds)` to `src/format.js`: 3723 gives \"1h 2m 3s\", 125 gives \"2m 5s\", 45 gives \"45s\"."},
+  {"id": "D4", "fixture": "D4", "lang": "python", "prod_path": "^(config/|notify/)",
+   "message": "Turn on the daily digest emails."}
+ ]
+}

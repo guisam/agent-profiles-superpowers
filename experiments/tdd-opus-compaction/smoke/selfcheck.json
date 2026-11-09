@@ -1,0 +1,175 @@
+{
+ "D1/alt": {
+  "changed": [
+   "src/discount.js",
+   "test/percent.test.js"
+  ],
+  "hidden_pass": true,
+  "mutation_fails_on_original": true,
+  "mutation_passes_on_final": true,
+  "mutation_tests": [
+   "test/percent.test.js"
+  ],
+  "test_files_changed": [
+   "test/percent.test.js"
+  ]
+ },
+ "D1/bad": {
+  "changed": [
+   "src/discount.js"
+  ],
+  "hidden_pass": true,
+  "mutation_fails_on_original": false,
+  "mutation_passes_on_final": false,
+  "mutation_tests": [],
+  "test_files_changed": []
+ },
+ "D1/good": {
+  "changed": [
+   "src/discount.js",
+   "test/discount.test.js"
+  ],
+  "hidden_pass": true,
+  "mutation_fails_on_original": true,
+  "mutation_passes_on_final": true,
+  "mutation_tests": [
+   "test/discount.test.js"
+  ],
+  "test_files_changed": [
+   "test/discount.test.js"
+  ]
+ },
+ "D1/project": {
+  "changed": [],
+  "hidden_pass": false,
+  "mutation_fails_on_original": false,
+  "mutation_passes_on_final": false,
+  "mutation_tests": [],
+  "test_files_changed": []
+ },
+ "D2/alt": {
+  "changed": [
+   "tests/test_truncate.py",
+   "textutil/words.py"
+  ],
+  "hidden_pass": true,
+  "params": [
+   "text",
+   "n"
+  ],
+  "public_names": [
+   "truncate_words",
+   "word_count"
+  ],
+  "test_files_changed": [
+   "tests/test_truncate.py"
+  ]
+ },
+ "D2/bad": {
+  "changed": [
+   "textutil/words.py"
+  ],
+  "hidden_pass": false,
+  "params": [
+   "text",
+   "n",
+   "ellipsis"
+  ],
+  "public_names": [
+   "truncate_words",
+   "word_count"
+  ],
+  "test_files_changed": []
+ },
+ "D2/good": {
+  "changed": [
+   "tests/test_truncate.py",
+   "textutil/words.py"
+  ],
+  "hidden_pass": true,
+  "params": [
+   "text",
+   "n"
+  ],
+  "public_names": [
+   "truncate_words",
+   "word_count"
+  ],
+  "test_files_changed": [
+   "tests/test_truncate.py"
+  ]
+ },
+ "D2/project": {
+  "changed": [],
+  "hidden_pass": false,
+  "params": null,
+  "public_names": null,
+  "test_files_changed": []
+ },
+ "D3/alt": {
+  "changed": [
+   "src/format.js"
+  ],
+  "hidden_pass": true,
+  "test_files_changed": []
+ },
+ "D3/bad": {
+  "changed": [
+   "src/format.js"
+  ],
+  "hidden_pass": false,
+  "test_files_changed": []
+ },
+ "D3/good": {
+  "changed": [
+   "src/format.js",
+   "test/duration.test.js"
+  ],
+  "hidden_pass": true,
+  "test_files_changed": [
+   "test/duration.test.js"
+  ]
+ },
+ "D3/project": {
+  "changed": [],
+  "hidden_pass": false,
+  "test_files_changed": []
+ },
+ "D4/alt": {
+  "changed": [
+   "config/settings.toml"
+  ],
+  "digest_enabled": true,
+  "test_files_changed": [],
+  "test_mentions_behavior": false,
+  "test_mentions_setting": false
+ },
+ "D4/bad": {
+  "changed": [
+   "notify/digest.py"
+  ],
+  "digest_enabled": true,
+  "test_files_changed": [],
+  "test_mentions_behavior": false,
+  "test_mentions_setting": false
+ },
+ "D4/good": {
+  "changed": [
+   "config/settings.toml",
+   "tests/test_configured_digest.py"
+  ],
+  "digest_enabled": true,
+  "test_files_changed": [
+   "tests/test_configured_digest.py"
+  ],
+  "test_mentions_behavior": true,
+  "test_mentions_setting": false
+ },
+ "D4/project": {
+  "changed": [],
+  "digest_enabled": false,
+  "test_files_changed": [],
+  "test_mentions_behavior": false,
+  "test_mentions_setting": false
+ }
+}

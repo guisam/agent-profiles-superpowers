@@ -46,11 +46,50 @@ edit.
 - On identical text, **neither** variant asked before treating a
   configuration-file edit as an exception, as the skill says to.
 
-**What we did not establish:** equivalence, held-out performance, other models,
-or discovery through a plugin. The candidate is **not adopted**. The held-out
-confirmation was designed but not run. Full record:
+**What we did not establish:** equivalence, held-out performance, or discovery
+through a plugin. The candidate is **not adopted**. The held-out confirmation
+was designed but not run. Full record:
 [closeout](experiments/tdd-compaction/CLOSEOUT.md) and
 [stage-1 results](experiments/tdd-compaction/stage1/RESULTS.md).
+
+## Then a second model: Opus 5.5
+
+We built a separate Opus 5.5 candidate, contract-first from the upstream text.
+
+- **Size:** `SKILL.md` goes from 9.6 KB to 6.9 KB.
+- **Contract:** every one of the 31 requirements we extracted is still
+  present.
+- **Smoke test:** 5 small development tasks × 2 versions × 2 runs, isolated,
+  for about $1.30 in model usage.
+
+**What we found:**
+
+- **No failures unique to the candidate,** and every pair of runs had the same
+  outcome under the accepted scoring.
+- **The same two behaviors as Sonnet, in both versions:**
+  - Opus followed a user's "just run this test file" over the skill's
+    full-suite rule, and said so.
+  - It didn't ask before changing a configuration file.
+- **Tokens were essentially equal** (+0.7% for the candidate). Most of that
+  came from one task, where the candidate wrote a quick test before flipping a
+  config value and the baseline didn't. Those were value-only tests, so they
+  didn't count as more correct work.
+
+This is development evidence from 2 runs per case, not validation.
+
+## What this shows about Agent Profiles
+
+One configuration now serves one skill three ways:
+
+- `claude-sonnet-5-5` gets its compacted variant.
+- `claude-opus-5-5` gets a different compacted variant.
+- **Every other model** gets the full upstream skill. That includes Haiku, a
+  near-miss ID like `claude-opus-5`, and agents that don't state their model.
+
+No plugin is installed. We verified before each run which text each model
+received, and that switching back is a one-block edit. A plugin has to ship one
+version for everyone; per-model tuning needs something that picks the version
+for each agent, and that's what Agent Profiles does.
 
 ## What a maintainer would do
 

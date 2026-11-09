@@ -19,6 +19,16 @@ Jesse Vincent/obra's Superpowers (see [README](README.md#credit-and-thanks)).
     adjudication rules: 18/21 vs 18/21, all 21 paired reps tied.
   - 9.31% fewer total execution tokens.
   - Stage 2 was not funded; the candidate is **not adopted**.
+- **TDD compaction for Opus 5.5** (`apsp-tdd-002`, §9): a separate candidate
+  prepared contract-first. In a 2-rep smoke on 5 development cases it had **no
+  candidate-only failures**: 6/10 vs 6/10 with every pair tied (4 vs 5 under
+  the frozen checker).
+- **What this shows about AP:** one skill, three model-specific deliveries
+  from one configuration. `claude-sonnet-5-5` and `claude-opus-5-5` each
+  receive their own compacted variant; every other model (including near-miss
+  IDs such as `claude-opus-5` and unstated models) receives full upstream. No
+  plugin is installed, and each model received exactly the text intended for
+  it.
 - **No variant of any skill is adopted.** Every model stays on full upstream
   7.0.2.
 
@@ -227,6 +237,48 @@ below is labeled with its evidence class.
   - experiment total: children and graders $2.71; the coordinator's
     build-and-run window about 24.7M tokens. The audit and closeout sessions
     were not measured.
+
+## 9. TDD compaction for Opus 5.5 (`apsp-tdd-002`, smoke, 2026-11-08)
+
+Full record: [smoke results](experiments/tdd-opus-compaction/smoke/RESULTS.md),
+[candidate rationale](packages/test-driven-development-opus-5-5/RATIONALE.md).
+
+- **Candidate:** `@apsp/test-driven-development-opus-5-5@0.1.0`, built
+  contract-first from upstream (not from the Sonnet candidate).
+  - `SKILL.md` goes from 9,578 to 6,928 bytes (−27.7%).
+  - 31/31 upstream requirements are mechanically covered. Every rule, rebuttal,
+    red flag and checklist item is kept, and the resources are unchanged.
+  - The worked examples, the diagram and the placeholder commands are
+    removed. The cycle order and "run the test" are stated explicitly.
+- **Delivery (verified):** AP 0.19.4 routed the candidate only to
+  `claude-opus-5-5`; Sonnet, Haiku, `claude-opus-5` and unknown IDs got
+  full upstream. Isolation was checked on every run.
+- **Behavior (smoke, development cases, 2 reps per arm, no graders):**
+  - No candidate-only failures.
+  - D2 (feature, "options later") and D3a (explicit permission to skip
+    tests): 2/2 in both arms.
+  - D3b (time pressure without permission): all 4 runs wrote failing tests
+    first; 3 of those REDs were hidden by the agents' own output filtering
+    (capture correction pending the operator audit).
+  - **Shared behaviors**, on identical text in both arms:
+    - D1: Opus followed a user's "just run this test file" over the skill's
+      full-suite rule, and said so.
+    - D4: no run asked before changing a configuration file. Sonnet behaved
+      the same in `apsp-tdd-001`.
+    These are upstream-skill questions, not compaction effects.
+- **Usage:**
+  - Totals: 581k vs 577k tokens (+0.7%); reported cost $0.60 vs $0.54.
+  - Almost all of the difference is D4 (90k vs 73k). Both candidate runs wrote
+    a test before changing the config, and both baseline runs edited it
+    directly.
+  - Those were value-only tests, which the skill's own "no change detectors"
+    guidance doesn't count. So the extra work did not produce more correct
+    outcomes.
+  - Across the other cases the candidate used slightly fewer tokens.
+  - At 10 runs per arm none of this is a cost finding.
+- **Cost:** children $1.32 (2 smoke + 20 runs), against a $12 ceiling.
+- **Not established:** held-out performance, reliability beyond 2 reps, other
+  hosts. **Not adopted.**
 
 ## Not done / limits
 

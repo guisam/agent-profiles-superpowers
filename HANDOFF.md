@@ -634,3 +634,65 @@ default. **No candidate is adopted.**
 - The maintainer summary is published at `FOR-MAINTAINERS.md` (repo root),
   moved from `reports/maintainer-summary.draft.md` and linked from the README.
   Recommended outreach: a short comment on obra/superpowers#2665. Not sent.
+
+---
+
+## Opus 5.5 TDD candidate prepared, UNVALIDATED (2026-11-08)
+
+**Scope:** local preparation and deterministic checks only. There were no
+model probes, trials or graders, and no spending. Routing is unchanged, and
+nothing is committed or pushed. The shared skill-compaction preset was not
+modified (`SKILL.md` sha256 still `989b59b9…`).
+
+- **Candidate:** `packages/test-driven-development-opus-5-5/0.1.0`
+  (`@apsp/test-driven-development-opus-5-5@0.1.0`).
+  - `SKILL.md` 6,928 bytes, against 9,578 upstream and 7,025 for the Sonnet
+    candidate.
+  - AP 0.19.4 digest `ebf4efd6…51d7`.
+  - Regenerate it from upstream with
+    `experiments/tdd-opus-compaction/tools/make_candidate.py`.
+- **Edits** (RATIONALE.md):
+  - O1: the diagram is replaced by a one-sentence order.
+  - O2, O4, O5: the examples are removed.
+  - O3: the wrong-failure condition is extracted from the diagram.
+  - O6, O7: the placeholder `npm test` fences become explicit "Run the test."
+  - O8: the "Bad" column of the Good Tests table is dropped.
+  - Every rule, rebuttal, red flag, checklist item, the frontmatter and the
+    resources are unchanged.
+- **Contract:** `experiments/tdd-opus-compaction/requirements.json`
+  (31 requirements) and `CONTRACT.md`.
+  - The stage-1 adjudications (R5 permission reading, R6 behavior-test rule)
+    are evaluation readings and are **not** encoded.
+  - T1-T10 are carried unresolved.
+- **Checks** (`CHECKS.md`):
+  - 31/31 coverage, for upstream, Sonnet and Opus;
+  - insertions are only the planned edits, in order;
+  - frontmatter, resources and inbound references intact;
+  - the digest reproduces;
+  - the `apsp-tdd-001` freeze still verifies.
+- **No Opus evidence exists.** The Sonnet screening is cross-model development
+  evidence only. Hypotheses H1-H5 are untested, with H2 (minimal GREEN without
+  the YAGNI example) the highest priority.
+- **Optional next step (needs approval):** `experiments/tdd-opus-compaction/PROPOSAL.md`.
+  Tier C is a smoke run: 4 development cases (5 messages) × 2 arms × 2 reps, at
+  most 24 child runs, deterministic scoring with no graders, about $2
+  (ceiling $12).
+- **Default:** every model stays on `@apsp/test-driven-development-upstream@7.0.2`.
+
+### apsp-tdd-002 (Opus 5.5 TDD smoke) run complete (2026-11-08)
+
+- **Approved:** tier C only. **Ran:** 2 smoke and 20 analyzed child runs, all
+  valid; 0 graders. Children cost $1.32 (ceiling $12).
+- **Amendment 1, before stage 1:**
+  - grepped Node `actual:`/`expected:` blocks count as failures;
+  - quote-aware command splitting (`sed 's|a|b|'` lost its target in 2.2.2).
+  The frozen 2.2.2 file is unchanged; the fixes are wrapper overrides.
+  Freeze 1.1.0.
+- **Result:** no candidate-only failures. Official 4/10 vs 5/10;
+  agent-proposed 6/10 vs 6/10 (the D3b capture correction).
+- **Shared behaviors:** Opus followed "just run this file" over the full-suite
+  rule (D1). No run asked before the config exception (D4): baseline edited
+  silently; candidate wrote value-only tests.
+- **Pending:** the operator audit of 3 items (`experiments/tdd-opus-compaction/smoke/RESULTS.md`).
+  The auto-resume task is deleted. Nothing is committed. Every model stays on
+  full upstream.
