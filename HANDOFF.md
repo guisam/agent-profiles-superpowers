@@ -621,3 +621,13 @@ default. **No candidate is adopted.**
 - The issue #88 update is posted from
   `reports/issue-88-update-2026-11-08-closeout.draft.md`, revised for
   publication.
+- PR #92 merged into Agent-Profiles `main` (`8953285`) after all CI checks passed
+  on macOS, Ubuntu and Windows. Wiki updated (0.19.7 entry and a companion link).
+  No npm release or tag.
+- The #88 update is posted:
+  https://github.com/guisam/Agent-Profiles/issues/88#issuecomment-6730991902
+  (text in `reports/issue-88-update-2026-11-08-closeout.md`). The issue stays
+  open.
+- Still open: whether to offer the workflow to obra
+  (`reports/maintainer-summary.draft.md`, not sent); Petrov's dataset terms;
+  closing #88 with follow-ups.
