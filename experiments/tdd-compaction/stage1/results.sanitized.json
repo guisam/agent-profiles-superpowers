@@ -1,0 +1,1969 @@
+{
+ "schema": "apsp-results/1",
+ "campaign": {
+  "id": "apsp-tdd-001/stage1",
+  "suite": "tdd screening R-block (R1-R6, N1)",
+  "suite_kind": "screening",
+  "freeze_sha256": "732ced9fd2a3c4bce622e40749224fcadf320a0093c87f4589c44ea7a25cef33",
+  "reps_per_arm": 3,
+  "order": "per rep: seeded case shuffle; arm order alternates by rep parity",
+  "amendments": [
+   {
+    "id": "A0",
+    "timing": "pre-run",
+    "scope": "D-block (discovery) dropped; AP 'Run again' section stripped from both contexts"
+   },
+   {
+    "id": "A1",
+    "timing": "after smoke, before stage 1",
+    "scope": "checker reads compound Bash commands and runner summaries"
+   },
+   {
+    "id": "A2",
+    "timing": "mid-stage, after 6/42 runs",
+    "scope": "matched R5/R6 failures stop pausing; R5 lenient reading added beside official"
+   }
+  ]
+ },
+ "configuration": {
+  "model": "claude-sonnet-5-5",
+  "host": "Claude Code CLI, headless (claude -p)",
+  "host_version": "2.1.319",
+  "os": "Windows 11",
+  "ap_version": "0.19.4",
+  "delivery_route": "AP resolve (required skill) -> context file -> --append-system-prompt-file; resource file copied beside the project",
+  "launch_flags": [
+   "--safe-mode",
+   "--strict-mcp-config",
+   "--no-chrome",
+   "--disable-slash-commands",
+   "--permission-mode bypassPermissions",
+   "--max-budget-usd 1.25"
+  ],
+  "effort": "medium",
+  "tools": [
+   "Bash",
+   "Edit",
+   "Glob",
+   "Grep",
+   "Read",
+   "Write"
+  ],
+  "isolation": {
+   "init_checked_every_run": true,
+   "skills_listed": 0,
+   "mcp_servers": 0,
+   "hook_events": 0,
+   "non_builtin_plugins": 0,
+   "builtin_plugins": 5,
+   "deny_list_hits": 0,
+   "env_scrubbed": "CLAUDECODE, CLAUDE_*, T3CODE_*, AGENT_PROFILES_*, ANTHROPIC_*",
+   "run_dirs": "disposable temp copies outside the repository"
+  },
+  "graders": {
+   "model": "claude-opus-5-5",
+   "per_bundle": 2,
+   "independence": "execution provenance"
+  }
+ },
+ "arms": {
+  "full": {
+   "package": "@apsp/test-driven-development-upstream@7.0.2",
+   "ap_digest": "ce680b8a2f3c31a12dad8b1d2c6917649b268149969a80fbea13dc4d0ab640f3",
+   "skill_sha256": "64b03fce4aee5a97a93160cea8111f3ba13a17b7c001db4bd5836d67fd10705d",
+   "delivered_context_sha256": "dd2c61969bc2e4054cb44be3e8020241c5e817b24397b4d1cf98ce2fd240019e"
+  },
+  "cand": {
+   "package": "@apsp/test-driven-development-sonnet-5-5@0.1.0",
+   "ap_digest": "bd446f965112f984517f91a56e47fb8ddcf40686a3310cbeae62d0a36f524052",
+   "skill_sha256": "4117a24ece8a96e14c2f286dd39ebba79fd98104e551ac28328159229af98fd4",
+   "delivered_context_sha256": "2a4e776203e46f46574edc5208934f312e05dab7bacbbc0958ca11252faa4b08"
+  }
+ },
+ "runs": [
+  {
+   "case": "N1",
+   "arm": "cand",
+   "rep": 1,
+   "setup_valid": true,
+   "termination": "ok",
+   "official": {
+    "M": {
+     "M1_no_test_files": true,
+     "M2_docs_fixed_in_scope": true,
+     "M3_not_question_only": true
+    },
+    "S": {},
+    "all_M": true,
+    "Gr1": null
+   },
+   "accepted": {
+    "M": {
+     "M1_no_test_files": true,
+     "M2_docs_fixed_in_scope": true,
+     "M3_not_question_only": true
+    },
+    "all_M": true,
+    "Gr1": null,
+    "changes": []
+   },
+   "graders_agree": null,
+   "question_only": false,
+   "tool_calls": 2,
+   "num_turns": 3,
+   "usage": {
+    "input_tokens": 6,
+    "cache_creation_input_tokens": 1482,
+    "cache_read_input_tokens": 29533,
+    "output_tokens": 344
+   },
+   "cost_usd_reported": 0.012333299999999998
+  },
+  {
+   "case": "N1",
+   "arm": "cand",
+   "rep": 2,
+   "setup_valid": true,
+   "termination": "ok",
+   "official": {
+    "M": {
+     "M1_no_test_files": true,
+     "M2_docs_fixed_in_scope": true,
+     "M3_not_question_only": true
+    },
+    "S": {},
+    "all_M": true,
+    "Gr1": null
+   },
+   "accepted": {
+    "M": {
+     "M1_no_test_files": true,
+     "M2_docs_fixed_in_scope": true,
+     "M3_not_question_only": true
+    },
+    "all_M": true,
+    "Gr1": null,
+    "changes": []
+   },
+   "graders_agree": null,
+   "question_only": false,
+   "tool_calls": 2,
+   "num_turns": 3,
+   "usage": {
+    "input_tokens": 6,
+    "cache_creation_input_tokens": 898,
+    "cache_read_input_tokens": 30150,
+    "output_tokens": 355
+   },
+   "cost_usd_reported": 0.010169000000000001
+  },
+  {
+   "case": "N1",
+   "arm": "cand",
+   "rep": 3,
+   "setup_valid": true,
+   "termination": "ok",
+   "official": {
+    "M": {
+     "M1_no_test_files": true,
+     "M2_docs_fixed_in_scope": true,
+     "M3_not_question_only": true
+    },
+    "S": {},
+    "all_M": true,
+    "Gr1": null
+   },
+   "accepted": {
+    "M": {
+     "M1_no_test_files": true,
+     "M2_docs_fixed_in_scope": true,
+     "M3_not_question_only": true
+    },
+    "all_M": true,
+    "Gr1": null,
+    "changes": []
+   },
+   "graders_agree": null,
+   "question_only": false,
+   "tool_calls": 2,
+   "num_turns": 3,
+   "usage": {
+    "input_tokens": 6,
+    "cache_creation_input_tokens": 893,
+    "cache_read_input_tokens": 30154,
+    "output_tokens": 347
+   },
+   "cost_usd_reported": 0.0100694
+  },
+  {
+   "case": "N1",
+   "arm": "full",
+   "rep": 1,
+   "setup_valid": true,
+   "termination": "ok",
+   "official": {
+    "M": {
+     "M1_no_test_files": true,
+     "M2_docs_fixed_in_scope": true,
+     "M3_not_question_only": true
+    },
+    "S": {},
+    "all_M": true,
+    "Gr1": null
+   },
+   "accepted": {
+    "M": {
+     "M1_no_test_files": true,
+     "M2_docs_fixed_in_scope": true,
+     "M3_not_question_only": true
+    },
+    "all_M": true,
+    "Gr1": null,
+    "changes": []
+   },
+   "graders_agree": null,
+   "question_only": false,
+   "tool_calls": 2,
+   "num_turns": 3,
+   "usage": {
+    "input_tokens": 6,
+    "cache_creation_input_tokens": 1470,
+    "cache_read_input_tokens": 32936,
+    "output_tokens": 281
+   },
+   "cost_usd_reported": 0.0119956
+  },
+  {
+   "case": "N1",
+   "arm": "full",
+   "rep": 2,
+   "setup_valid": true,
+   "termination": "ok",
+   "official": {
+    "M": {
+     "M1_no_test_files": true,
+     "M2_docs_fixed_in_scope": true,
+     "M3_not_question_only": true
+    },
+    "S": {},
+    "all_M": true,
+    "Gr1": null
+   },
+   "accepted": {
+    "M": {
+     "M1_no_test_files": true,
+     "M2_docs_fixed_in_scope": true,
+     "M3_not_question_only": true
+    },
+    "all_M": true,
+    "Gr1": null,
+    "changes": []
+   },
+   "graders_agree": null,
+   "question_only": false,
+   "tool_calls": 2,
+   "num_turns": 3,
+   "usage": {
+    "input_tokens": 6,
+    "cache_creation_input_tokens": 889,
+    "cache_read_input_tokens": 33557,
+    "output_tokens": 356
+   },
+   "cost_usd_reported": 0.0104837
+  },
+  {
+   "case": "N1",
+   "arm": "full",
+   "rep": 3,
+   "setup_valid": true,
+   "termination": "ok",
+   "official": {
+    "M": {
+     "M1_no_test_files": true,
+     "M2_docs_fixed_in_scope": true,
+     "M3_not_question_only": true
+    },
+    "S": {},
+    "all_M": true,
+    "Gr1": null
+   },
+   "accepted": {
+    "M": {
+     "M1_no_test_files": true,
+     "M2_docs_fixed_in_scope": true,
+     "M3_not_question_only": true
+    },
+    "all_M": true,
+    "Gr1": null,
+    "changes": []
+   },
+   "graders_agree": null,
+   "question_only": false,
+   "tool_calls": 2,
+   "num_turns": 3,
+   "usage": {
+    "input_tokens": 6,
+    "cache_creation_input_tokens": 901,
+    "cache_read_input_tokens": 33557,
+    "output_tokens": 345
+   },
+   "cost_usd_reported": 0.010421699999999999
+  },
+  {
+   "case": "R1",
+   "arm": "cand",
+   "rep": 1,
+   "setup_valid": true,
+   "termination": "ok",
+   "official": {
+    "M": {
+     "M1_test_before_prod": true,
+     "M2_red_observed": true,
+     "M3_hidden_pass": true,
+     "M4_full_suite": true
+    },
+    "S": {
+     "S1_real_code_no_mock": true,
+     "S2_red_assertion": false
+    },
+    "all_M": true,
+    "Gr1": true
+   },
+   "accepted": {
+    "M": {
+     "M1_test_before_prod": true,
+     "M2_red_observed": true,
+     "M3_hidden_pass": true,
+     "M4_full_suite": true
+    },
+    "all_M": true,
+    "Gr1": true,
+    "changes": []
+   },
+   "graders_agree": true,
+   "question_only": false,
+   "tool_calls": 4,
+   "num_turns": 5,
+   "usage": {
+    "input_tokens": 10,
+    "cache_creation_input_tokens": 2825,
+    "cache_read_input_tokens": 54838,
+    "output_tokens": 1294
+   },
+   "cost_usd_reported": 0.0297438
+  },
+  {
+   "case": "R1",
+   "arm": "cand",
+   "rep": 2,
+   "setup_valid": true,
+   "termination": "ok",
+   "official": {
+    "M": {
+     "M1_test_before_prod": true,
+     "M2_red_observed": true,
+     "M3_hidden_pass": true,
+     "M4_full_suite": true
+    },
+    "S": {
+     "S1_real_code_no_mock": true,
+     "S2_red_assertion": false
+    },
+    "all_M": true,
+    "Gr1": true
+   },
+   "accepted": {
+    "M": {
+     "M1_test_before_prod": true,
+     "M2_red_observed": true,
+     "M3_hidden_pass": true,
+     "M4_full_suite": true
+    },
+    "all_M": true,
+    "Gr1": true,
+    "changes": []
+   },
+   "graders_agree": true,
+   "question_only": false,
+   "tool_calls": 8,
+   "num_turns": 9,
+   "usage": {
+    "input_tokens": 10,
+    "cache_creation_input_tokens": 6003,
+    "cache_read_input_tokens": 62938,
+    "output_tokens": 1593
+   },
+   "cost_usd_reported": 0.0462558
+  },
+  {
+   "case": "R1",
+   "arm": "cand",
+   "rep": 3,
+   "setup_valid": true,
+   "termination": "ok",
+   "official": {
+    "M": {
+     "M1_test_before_prod": true,
+     "M2_red_observed": true,
+     "M3_hidden_pass": true,
+     "M4_full_suite": true
+    },
+    "S": {
+     "S1_real_code_no_mock": true,
+     "S2_red_assertion": false
+    },
+    "all_M": true,
+    "Gr1": true
+   },
+   "accepted": {
+    "M": {
+     "M1_test_before_prod": true,
+     "M2_red_observed": true,
+     "M3_hidden_pass": true,
+     "M4_full_suite": true
+    },
+    "all_M": true,
+    "Gr1": true,
+    "changes": []
+   },
+   "graders_agree": true,
+   "question_only": false,
+   "tool_calls": 8,
+   "num_turns": 9,
+   "usage": {
+    "input_tokens": 10,
+    "cache_creation_input_tokens": 6127,
+    "cache_read_input_tokens": 62863,
+    "output_tokens": 1625
+   },
+   "cost_usd_reported": 0.0470643
+  },
+  {
+   "case": "R1",
+   "arm": "full",
+   "rep": 1,
+   "setup_valid": true,
+   "termination": "ok",
+   "official": {
+    "M": {
+     "M1_test_before_prod": true,
+     "M2_red_observed": true,
+     "M3_hidden_pass": true,
+     "M4_full_suite": true
+    },
+    "S": {
+     "S1_real_code_no_mock": true,
+     "S2_red_assertion": false
+    },
+    "all_M": true,
+    "Gr1": true
+   },
+   "accepted": {
+    "M": {
+     "M1_test_before_prod": true,
+     "M2_red_observed": true,
+     "M3_hidden_pass": true,
+     "M4_full_suite": true
+    },
+    "all_M": true,
+    "Gr1": true,
+    "changes": []
+   },
+   "graders_agree": true,
+   "question_only": false,
+   "tool_calls": 9,
+   "num_turns": 10,
+   "usage": {
+    "input_tokens": 14,
+    "cache_creation_input_tokens": 6300,
+    "cache_read_input_tokens": 102221,
+    "output_tokens": 1820
+   },
+   "cost_usd_reported": 0.0536501
+  },
+  {
+   "case": "R1",
+   "arm": "full",
+   "rep": 2,
+   "setup_valid": true,
+   "termination": "ok",
+   "official": {
+    "M": {
+     "M1_test_before_prod": true,
+     "M2_red_observed": true,
+     "M3_hidden_pass": true,
+     "M4_full_suite": true
+    },
+    "S": {
+     "S1_real_code_no_mock": true,
+     "S2_red_assertion": false
+    },
+    "all_M": true,
+    "Gr1": true
+   },
+   "accepted": {
+    "M": {
+     "M1_test_before_prod": true,
+     "M2_red_observed": true,
+     "M3_hidden_pass": true,
+     "M4_full_suite": true
+    },
+    "all_M": true,
+    "Gr1": true,
+    "changes": []
+   },
+   "graders_agree": true,
+   "question_only": false,
+   "tool_calls": 4,
+   "num_turns": 5,
+   "usage": {
+    "input_tokens": 10,
+    "cache_creation_input_tokens": 5359,
+    "cache_read_input_tokens": 67034,
+    "output_tokens": 1305
+   },
+   "cost_usd_reported": 0.0412094
+  },
+  {
+   "case": "R1",
+   "arm": "full",
+   "rep": 3,
+   "setup_valid": true,
+   "termination": "ok",
+   "official": {
+    "M": {
+     "M1_test_before_prod": true,
+     "M2_red_observed": true,
+     "M3_hidden_pass": true,
+     "M4_full_suite": true
+    },
+    "S": {
+     "S1_real_code_no_mock": true,
+     "S2_red_assertion": false
+    },
+    "all_M": true,
+    "Gr1": true
+   },
+   "accepted": {
+    "M": {
+     "M1_test_before_prod": true,
+     "M2_red_observed": true,
+     "M3_hidden_pass": true,
+     "M4_full_suite": true
+    },
+    "all_M": true,
+    "Gr1": true,
+    "changes": []
+   },
+   "graders_agree": true,
+   "question_only": false,
+   "tool_calls": 4,
+   "num_turns": 5,
+   "usage": {
+    "input_tokens": 10,
+    "cache_creation_input_tokens": 5425,
+    "cache_read_input_tokens": 66874,
+    "output_tokens": 1336
+   },
+   "cost_usd_reported": 0.041767399999999996
+  },
+  {
+   "case": "R2",
+   "arm": "cand",
+   "rep": 1,
+   "setup_valid": true,
+   "termination": "ok",
+   "official": {
+    "M": {
+     "M1_test_before_prod": true,
+     "M2_red_observed": false,
+     "M3_mutation": true,
+     "M4_hidden_pass": true,
+     "M5_full_suite": true
+    },
+    "S": {
+     "S1_red_assertion": false
+    },
+    "all_M": false,
+    "Gr1": false
+   },
+   "accepted": {
+    "M": {
+     "M1_test_before_prod": true,
+     "M2_red_observed": true,
+     "M3_mutation": true,
+     "M4_hidden_pass": true,
+     "M5_full_suite": true
+    },
+    "all_M": true,
+    "Gr1": true,
+    "changes": [
+     "M2_red_observed: False -> True (evidence capture)"
+    ]
+   },
+   "graders_agree": true,
+   "question_only": false,
+   "tool_calls": 9,
+   "num_turns": 10,
+   "usage": {
+    "input_tokens": 14,
+    "cache_creation_input_tokens": 7629,
+    "cache_read_input_tokens": 94821,
+    "output_tokens": 1501
+   },
+   "cost_usd_reported": 0.0550361
+  },
+  {
+   "case": "R2",
+   "arm": "cand",
+   "rep": 2,
+   "setup_valid": true,
+   "termination": "ok",
+   "official": {
+    "M": {
+     "M1_test_before_prod": true,
+     "M2_red_observed": false,
+     "M3_mutation": true,
+     "M4_hidden_pass": true,
+     "M5_full_suite": false
+    },
+    "S": {
+     "S1_red_assertion": false
+    },
+    "all_M": false,
+    "Gr1": true
+   },
+   "accepted": {
+    "M": {
+     "M1_test_before_prod": true,
+     "M2_red_observed": true,
+     "M3_mutation": true,
+     "M4_hidden_pass": true,
+     "M5_full_suite": true
+    },
+    "all_M": true,
+    "Gr1": true,
+    "changes": [
+     "M2_red_observed: False -> True (evidence capture)",
+     "M5_full_suite: False -> True (evidence capture)"
+    ]
+   },
+   "graders_agree": true,
+   "question_only": false,
+   "tool_calls": 4,
+   "num_turns": 5,
+   "usage": {
+    "input_tokens": 10,
+    "cache_creation_input_tokens": 2585,
+    "cache_read_input_tokens": 54454,
+    "output_tokens": 731
+   },
+   "cost_usd_reported": 0.0231154
+  },
+  {
+   "case": "R2",
+   "arm": "cand",
+   "rep": 3,
+   "setup_valid": true,
+   "termination": "ok",
+   "official": {
+    "M": {
+     "M1_test_before_prod": true,
+     "M2_red_observed": false,
+     "M3_mutation": true,
+     "M4_hidden_pass": true,
+     "M5_full_suite": false
+    },
+    "S": {
+     "S1_red_assertion": false
+    },
+    "all_M": false,
+    "Gr1": true
+   },
+   "accepted": {
+    "M": {
+     "M1_test_before_prod": true,
+     "M2_red_observed": true,
+     "M3_mutation": true,
+     "M4_hidden_pass": true,
+     "M5_full_suite": true
+    },
+    "all_M": true,
+    "Gr1": true,
+    "changes": [
+     "M2_red_observed: False -> True (evidence capture)",
+     "M5_full_suite: False -> True (evidence capture)"
+    ]
+   },
+   "graders_agree": true,
+   "question_only": false,
+   "tool_calls": 6,
+   "num_turns": 7,
+   "usage": {
+    "input_tokens": 14,
+    "cache_creation_input_tokens": 5669,
+    "cache_read_input_tokens": 90228,
+    "output_tokens": 1183
+   },
+   "cost_usd_reported": 0.04355680000000001
+  },
+  {
+   "case": "R2",
+   "arm": "full",
+   "rep": 1,
+   "setup_valid": true,
+   "termination": "ok",
+   "official": {
+    "M": {
+     "M1_test_before_prod": true,
+     "M2_red_observed": false,
+     "M3_mutation": true,
+     "M4_hidden_pass": true,
+     "M5_full_suite": true
+    },
+    "S": {
+     "S1_red_assertion": false
+    },
+    "all_M": false,
+    "Gr1": false
+   },
+   "accepted": {
+    "M": {
+     "M1_test_before_prod": true,
+     "M2_red_observed": true,
+     "M3_mutation": true,
+     "M4_hidden_pass": true,
+     "M5_full_suite": true
+    },
+    "all_M": true,
+    "Gr1": true,
+    "changes": [
+     "M2_red_observed: False -> True (evidence capture)"
+    ]
+   },
+   "graders_agree": false,
+   "question_only": false,
+   "tool_calls": 7,
+   "num_turns": 8,
+   "usage": {
+    "input_tokens": 10,
+    "cache_creation_input_tokens": 4384,
+    "cache_read_input_tokens": 61141,
+    "output_tokens": 1272
+   },
+   "cost_usd_reported": 0.0363901
+  },
+  {
+   "case": "R2",
+   "arm": "full",
+   "rep": 2,
+   "setup_valid": true,
+   "termination": "ok",
+   "official": {
+    "M": {
+     "M1_test_before_prod": true,
+     "M2_red_observed": false,
+     "M3_mutation": true,
+     "M4_hidden_pass": true,
+     "M5_full_suite": true
+    },
+    "S": {
+     "S1_red_assertion": false
+    },
+    "all_M": false,
+    "Gr1": false
+   },
+   "accepted": {
+    "M": {
+     "M1_test_before_prod": true,
+     "M2_red_observed": true,
+     "M3_mutation": true,
+     "M4_hidden_pass": true,
+     "M5_full_suite": true
+    },
+    "all_M": true,
+    "Gr1": true,
+    "changes": [
+     "M2_red_observed: False -> True (evidence capture)"
+    ]
+   },
+   "graders_agree": true,
+   "question_only": false,
+   "tool_calls": 9,
+   "num_turns": 10,
+   "usage": {
+    "input_tokens": 10,
+    "cache_creation_input_tokens": 6408,
+    "cache_read_input_tokens": 69061,
+    "output_tokens": 1353
+   },
+   "cost_usd_reported": 0.04608810000000001
+  },
+  {
+   "case": "R2",
+   "arm": "full",
+   "rep": 3,
+   "setup_valid": true,
+   "termination": "ok",
+   "official": {
+    "M": {
+     "M1_test_before_prod": true,
+     "M2_red_observed": false,
+     "M3_mutation": true,
+     "M4_hidden_pass": true,
+     "M5_full_suite": true
+    },
+    "S": {
+     "S1_red_assertion": false
+    },
+    "all_M": false,
+    "Gr1": true
+   },
+   "accepted": {
+    "M": {
+     "M1_test_before_prod": true,
+     "M2_red_observed": true,
+     "M3_mutation": true,
+     "M4_hidden_pass": true,
+     "M5_full_suite": true
+    },
+    "all_M": true,
+    "Gr1": true,
+    "changes": [
+     "M2_red_observed: False -> True (evidence capture)"
+    ]
+   },
+   "graders_agree": true,
+   "question_only": false,
+   "tool_calls": 3,
+   "num_turns": 4,
+   "usage": {
+    "input_tokens": 8,
+    "cache_creation_input_tokens": 2393,
+    "cache_read_input_tokens": 47516,
+    "output_tokens": 858
+   },
+   "cost_usd_reported": 0.0229196
+  },
+  {
+   "case": "R3",
+   "arm": "cand",
+   "rep": 1,
+   "setup_valid": true,
+   "termination": "ok",
+   "official": {
+    "M": {
+     "M1_test_before_prod": true,
+     "M2_red_observed": true,
+     "M3_hidden_pass": true,
+     "M4_signature": true,
+     "M5_full_suite": true
+    },
+    "S": {
+     "S1_no_extra_public": true,
+     "S2_red_assertion": false
+    },
+    "all_M": true,
+    "Gr1": true
+   },
+   "accepted": {
+    "M": {
+     "M1_test_before_prod": true,
+     "M2_red_observed": true,
+     "M3_hidden_pass": true,
+     "M4_signature": true,
+     "M5_full_suite": true
+    },
+    "all_M": true,
+    "Gr1": true,
+    "changes": []
+   },
+   "graders_agree": true,
+   "question_only": false,
+   "tool_calls": 4,
+   "num_turns": 5,
+   "usage": {
+    "input_tokens": 10,
+    "cache_creation_input_tokens": 6315,
+    "cache_read_input_tokens": 61099,
+    "output_tokens": 1371
+   },
+   "cost_usd_reported": 0.0450999
+  },
+  {
+   "case": "R3",
+   "arm": "cand",
+   "rep": 2,
+   "setup_valid": true,
+   "termination": "ok",
+   "official": {
+    "M": {
+     "M1_test_before_prod": true,
+     "M2_red_observed": true,
+     "M3_hidden_pass": true,
+     "M4_signature": true,
+     "M5_full_suite": true
+    },
+    "S": {
+     "S1_no_extra_public": true,
+     "S2_red_assertion": false
+    },
+    "all_M": true,
+    "Gr1": true
+   },
+   "accepted": {
+    "M": {
+     "M1_test_before_prod": true,
+     "M2_red_observed": true,
+     "M3_hidden_pass": true,
+     "M4_signature": true,
+     "M5_full_suite": true
+    },
+    "all_M": true,
+    "Gr1": true,
+    "changes": []
+   },
+   "graders_agree": true,
+   "question_only": false,
+   "tool_calls": 4,
+   "num_turns": 5,
+   "usage": {
+    "input_tokens": 10,
+    "cache_creation_input_tokens": 5370,
+    "cache_read_input_tokens": 61411,
+    "output_tokens": 1271
+   },
+   "cost_usd_reported": 0.0403511
+  },
+  {
+   "case": "R3",
+   "arm": "cand",
+   "rep": 3,
+   "setup_valid": true,
+   "termination": "ok",
+   "official": {
+    "M": {
+     "M1_test_before_prod": true,
+     "M2_red_observed": true,
+     "M3_hidden_pass": true,
+     "M4_signature": true,
+     "M5_full_suite": true
+    },
+    "S": {
+     "S1_no_extra_public": true,
+     "S2_red_assertion": false
+    },
+    "all_M": true,
+    "Gr1": true
+   },
+   "accepted": {
+    "M": {
+     "M1_test_before_prod": true,
+     "M2_red_observed": true,
+     "M3_hidden_pass": true,
+     "M4_signature": true,
+     "M5_full_suite": true
+    },
+    "all_M": true,
+    "Gr1": true,
+    "changes": []
+   },
+   "graders_agree": true,
+   "question_only": false,
+   "tool_calls": 4,
+   "num_turns": 5,
+   "usage": {
+    "input_tokens": 8,
+    "cache_creation_input_tokens": 5361,
+    "cache_read_input_tokens": 46677,
+    "output_tokens": 1129
+   },
+   "cost_usd_reported": 0.0374177
+  },
+  {
+   "case": "R3",
+   "arm": "full",
+   "rep": 1,
+   "setup_valid": true,
+   "termination": "ok",
+   "official": {
+    "M": {
+     "M1_test_before_prod": true,
+     "M2_red_observed": true,
+     "M3_hidden_pass": false,
+     "M4_signature": true,
+     "M5_full_suite": true
+    },
+    "S": {
+     "S1_no_extra_public": true,
+     "S2_red_assertion": false
+    },
+    "all_M": false,
+    "Gr1": true
+   },
+   "accepted": {
+    "M": {
+     "M1_test_before_prod": true,
+     "M2_red_observed": true,
+     "M3_hidden_pass": true,
+     "M4_signature": true,
+     "M5_full_suite": true
+    },
+    "all_M": true,
+    "Gr1": true,
+    "changes": [
+     "M3_hidden_pass: False -> True (fixture)"
+    ]
+   },
+   "graders_agree": true,
+   "question_only": false,
+   "tool_calls": 4,
+   "num_turns": 5,
+   "usage": {
+    "input_tokens": 10,
+    "cache_creation_input_tokens": 5589,
+    "cache_read_input_tokens": 65939,
+    "output_tokens": 1360
+   },
+   "cost_usd_reported": 0.042569899999999994
+  },
+  {
+   "case": "R3",
+   "arm": "full",
+   "rep": 2,
+   "setup_valid": true,
+   "termination": "ok",
+   "official": {
+    "M": {
+     "M1_test_before_prod": true,
+     "M2_red_observed": true,
+     "M3_hidden_pass": true,
+     "M4_signature": true,
+     "M5_full_suite": true
+    },
+    "S": {
+     "S1_no_extra_public": true,
+     "S2_red_assertion": false
+    },
+    "all_M": true,
+    "Gr1": true
+   },
+   "accepted": {
+    "M": {
+     "M1_test_before_prod": true,
+     "M2_red_observed": true,
+     "M3_hidden_pass": true,
+     "M4_signature": true,
+     "M5_full_suite": true
+    },
+    "all_M": true,
+    "Gr1": true,
+    "changes": []
+   },
+   "graders_agree": true,
+   "question_only": false,
+   "tool_calls": 5,
+   "num_turns": 6,
+   "usage": {
+    "input_tokens": 10,
+    "cache_creation_input_tokens": 5956,
+    "cache_read_input_tokens": 68694,
+    "output_tokens": 1328
+   },
+   "cost_usd_reported": 0.0439934
+  },
+  {
+   "case": "R3",
+   "arm": "full",
+   "rep": 3,
+   "setup_valid": true,
+   "termination": "ok",
+   "official": {
+    "M": {
+     "M1_test_before_prod": true,
+     "M2_red_observed": true,
+     "M3_hidden_pass": true,
+     "M4_signature": true,
+     "M5_full_suite": true
+    },
+    "S": {
+     "S1_no_extra_public": true,
+     "S2_red_assertion": false
+    },
+    "all_M": true,
+    "Gr1": true
+   },
+   "accepted": {
+    "M": {
+     "M1_test_before_prod": true,
+     "M2_red_observed": true,
+     "M3_hidden_pass": true,
+     "M4_signature": true,
+     "M5_full_suite": true
+    },
+    "all_M": true,
+    "Gr1": true,
+    "changes": []
+   },
+   "graders_agree": true,
+   "question_only": false,
+   "tool_calls": 5,
+   "num_turns": 6,
+   "usage": {
+    "input_tokens": 10,
+    "cache_creation_input_tokens": 5703,
+    "cache_read_input_tokens": 68453,
+    "output_tokens": 1427
+   },
+   "cost_usd_reported": 0.0439473
+  },
+  {
+   "case": "R4",
+   "arm": "cand",
+   "rep": 1,
+   "setup_valid": true,
+   "termination": "ok",
+   "official": {
+    "M": {
+     "M1_test_before_prod": true,
+     "M2_red_observed": true,
+     "M3_hidden_pass": true,
+     "M4_full_suite": true
+    },
+    "S": {
+     "S1_real_code_no_mock": true,
+     "S2_one_behavior_names": true,
+     "S3_red_assertion": false
+    },
+    "all_M": true,
+    "Gr1": true
+   },
+   "accepted": {
+    "M": {
+     "M1_test_before_prod": true,
+     "M2_red_observed": true,
+     "M3_hidden_pass": true,
+     "M4_full_suite": true
+    },
+    "all_M": true,
+    "Gr1": true,
+    "changes": []
+   },
+   "graders_agree": true,
+   "question_only": false,
+   "tool_calls": 4,
+   "num_turns": 5,
+   "usage": {
+    "input_tokens": 10,
+    "cache_creation_input_tokens": 3679,
+    "cache_read_input_tokens": 54427,
+    "output_tokens": 1245
+   },
+   "cost_usd_reported": 0.032628700000000004
+  },
+  {
+   "case": "R4",
+   "arm": "cand",
+   "rep": 2,
+   "setup_valid": true,
+   "termination": "ok",
+   "official": {
+    "M": {
+     "M1_test_before_prod": true,
+     "M2_red_observed": true,
+     "M3_hidden_pass": true,
+     "M4_full_suite": true
+    },
+    "S": {
+     "S1_real_code_no_mock": true,
+     "S2_one_behavior_names": true,
+     "S3_red_assertion": false
+    },
+    "all_M": true,
+    "Gr1": true
+   },
+   "accepted": {
+    "M": {
+     "M1_test_before_prod": true,
+     "M2_red_observed": true,
+     "M3_hidden_pass": true,
+     "M4_full_suite": true
+    },
+    "all_M": true,
+    "Gr1": true,
+    "changes": []
+   },
+   "graders_agree": true,
+   "question_only": false,
+   "tool_calls": 4,
+   "num_turns": 5,
+   "usage": {
+    "input_tokens": 10,
+    "cache_creation_input_tokens": 4926,
+    "cache_read_input_tokens": 61266,
+    "output_tokens": 1210
+   },
+   "cost_usd_reported": 0.0379506
+  },
+  {
+   "case": "R4",
+   "arm": "cand",
+   "rep": 3,
+   "setup_valid": true,
+   "termination": "ok",
+   "official": {
+    "M": {
+     "M1_test_before_prod": true,
+     "M2_red_observed": true,
+     "M3_hidden_pass": true,
+     "M4_full_suite": true
+    },
+    "S": {
+     "S1_real_code_no_mock": true,
+     "S2_one_behavior_names": true,
+     "S3_red_assertion": false
+    },
+    "all_M": true,
+    "Gr1": true
+   },
+   "accepted": {
+    "M": {
+     "M1_test_before_prod": true,
+     "M2_red_observed": true,
+     "M3_hidden_pass": true,
+     "M4_full_suite": true
+    },
+    "all_M": true,
+    "Gr1": true,
+    "changes": []
+   },
+   "graders_agree": true,
+   "question_only": false,
+   "tool_calls": 10,
+   "num_turns": 11,
+   "usage": {
+    "input_tokens": 12,
+    "cache_creation_input_tokens": 6418,
+    "cache_read_input_tokens": 79382,
+    "output_tokens": 1766
+   },
+   "cost_usd_reported": 0.0512942
+  },
+  {
+   "case": "R4",
+   "arm": "full",
+   "rep": 1,
+   "setup_valid": true,
+   "termination": "ok",
+   "official": {
+    "M": {
+     "M1_test_before_prod": true,
+     "M2_red_observed": true,
+     "M3_hidden_pass": true,
+     "M4_full_suite": true
+    },
+    "S": {
+     "S1_real_code_no_mock": true,
+     "S2_one_behavior_names": true,
+     "S3_red_assertion": false
+    },
+    "all_M": true,
+    "Gr1": true
+   },
+   "accepted": {
+    "M": {
+     "M1_test_before_prod": true,
+     "M2_red_observed": true,
+     "M3_hidden_pass": true,
+     "M4_full_suite": true
+    },
+    "all_M": true,
+    "Gr1": true,
+    "changes": []
+   },
+   "graders_agree": true,
+   "question_only": false,
+   "tool_calls": 11,
+   "num_turns": 12,
+   "usage": {
+    "input_tokens": 14,
+    "cache_creation_input_tokens": 7241,
+    "cache_read_input_tokens": 102622,
+    "output_tokens": 1831
+   },
+   "cost_usd_reported": 0.057564199999999996
+  },
+  {
+   "case": "R4",
+   "arm": "full",
+   "rep": 2,
+   "setup_valid": true,
+   "termination": "ok",
+   "official": {
+    "M": {
+     "M1_test_before_prod": true,
+     "M2_red_observed": true,
+     "M3_hidden_pass": true,
+     "M4_full_suite": true
+    },
+    "S": {
+     "S1_real_code_no_mock": true,
+     "S2_one_behavior_names": true,
+     "S3_red_assertion": false
+    },
+    "all_M": true,
+    "Gr1": true
+   },
+   "accepted": {
+    "M": {
+     "M1_test_before_prod": true,
+     "M2_red_observed": true,
+     "M3_hidden_pass": true,
+     "M4_full_suite": true
+    },
+    "all_M": true,
+    "Gr1": true,
+    "changes": []
+   },
+   "graders_agree": true,
+   "question_only": false,
+   "tool_calls": 10,
+   "num_turns": 11,
+   "usage": {
+    "input_tokens": 12,
+    "cache_creation_input_tokens": 6408,
+    "cache_read_input_tokens": 86173,
+    "output_tokens": 1761
+   },
+   "cost_usd_reported": 0.0518833
+  },
+  {
+   "case": "R4",
+   "arm": "full",
+   "rep": 3,
+   "setup_valid": true,
+   "termination": "ok",
+   "official": {
+    "M": {
+     "M1_test_before_prod": true,
+     "M2_red_observed": true,
+     "M3_hidden_pass": true,
+     "M4_full_suite": true
+    },
+    "S": {
+     "S1_real_code_no_mock": true,
+     "S2_one_behavior_names": true,
+     "S3_red_assertion": false
+    },
+    "all_M": true,
+    "Gr1": true
+   },
+   "accepted": {
+    "M": {
+     "M1_test_before_prod": true,
+     "M2_red_observed": true,
+     "M3_hidden_pass": true,
+     "M4_full_suite": true
+    },
+    "all_M": true,
+    "Gr1": true,
+    "changes": []
+   },
+   "graders_agree": true,
+   "question_only": false,
+   "tool_calls": 10,
+   "num_turns": 11,
+   "usage": {
+    "input_tokens": 12,
+    "cache_creation_input_tokens": 6454,
+    "cache_read_input_tokens": 86248,
+    "output_tokens": 1809
+   },
+   "cost_usd_reported": 0.052554800000000006
+  },
+  {
+   "case": "R5",
+   "arm": "cand",
+   "rep": 1,
+   "setup_valid": true,
+   "termination": "ok",
+   "official": {
+    "M": {
+     "M1_red_or_asked": false,
+     "M2_hidden_or_question": true
+    },
+    "S": {},
+    "all_M": false,
+    "Gr1": null
+   },
+   "accepted": {
+    "M": {
+     "M1_red_or_asked": true,
+     "M2_hidden_or_question": true
+    },
+    "all_M": true,
+    "Gr1": null,
+    "changes": [
+     "M1_red_or_asked: False -> True (R5 permission reading, gate item 4)"
+    ]
+   },
+   "graders_agree": null,
+   "question_only": false,
+   "tool_calls": 2,
+   "num_turns": 3,
+   "usage": {
+    "input_tokens": 6,
+    "cache_creation_input_tokens": 2017,
+    "cache_read_input_tokens": 29809,
+    "output_tokens": 815
+   },
+   "cost_usd_reported": 0.019210900000000003
+  },
+  {
+   "case": "R5",
+   "arm": "cand",
+   "rep": 2,
+   "setup_valid": true,
+   "termination": "ok",
+   "official": {
+    "M": {
+     "M1_red_or_asked": false,
+     "M2_hidden_or_question": true
+    },
+    "S": {},
+    "all_M": false,
+    "Gr1": null
+   },
+   "accepted": {
+    "M": {
+     "M1_red_or_asked": true,
+     "M2_hidden_or_question": true
+    },
+    "all_M": true,
+    "Gr1": null,
+    "changes": [
+     "M1_red_or_asked: False -> True (R5 permission reading, gate item 4)"
+    ]
+   },
+   "graders_agree": null,
+   "question_only": false,
+   "tool_calls": 3,
+   "num_turns": 4,
+   "usage": {
+    "input_tokens": 6,
+    "cache_creation_input_tokens": 1379,
+    "cache_read_input_tokens": 30435,
+    "output_tokens": 931
+   },
+   "cost_usd_reported": 0.0178815
+  },
+  {
+   "case": "R5",
+   "arm": "cand",
+   "rep": 3,
+   "setup_valid": true,
+   "termination": "ok",
+   "official": {
+    "M": {
+     "M1_red_or_asked": false,
+     "M2_hidden_or_question": true
+    },
+    "S": {},
+    "all_M": false,
+    "Gr1": null
+   },
+   "accepted": {
+    "M": {
+     "M1_red_or_asked": true,
+     "M2_hidden_or_question": true
+    },
+    "all_M": true,
+    "Gr1": null,
+    "changes": [
+     "M1_red_or_asked: False -> True (R5 permission reading, gate item 4)"
+    ]
+   },
+   "graders_agree": null,
+   "question_only": false,
+   "tool_calls": 3,
+   "num_turns": 4,
+   "usage": {
+    "input_tokens": 6,
+    "cache_creation_input_tokens": 1343,
+    "cache_read_input_tokens": 30433,
+    "output_tokens": 901
+   },
+   "cost_usd_reported": 0.0174373
+  },
+  {
+   "case": "R5",
+   "arm": "full",
+   "rep": 1,
+   "setup_valid": true,
+   "termination": "ok",
+   "official": {
+    "M": {
+     "M1_red_or_asked": false,
+     "M2_hidden_or_question": true
+    },
+    "S": {},
+    "all_M": false,
+    "Gr1": null
+   },
+   "accepted": {
+    "M": {
+     "M1_red_or_asked": true,
+     "M2_hidden_or_question": true
+    },
+    "all_M": true,
+    "Gr1": null,
+    "changes": [
+     "M1_red_or_asked: False -> True (R5 permission reading, gate item 4)"
+    ]
+   },
+   "graders_agree": null,
+   "question_only": false,
+   "tool_calls": 3,
+   "num_turns": 4,
+   "usage": {
+    "input_tokens": 6,
+    "cache_creation_input_tokens": 2073,
+    "cache_read_input_tokens": 33154,
+    "output_tokens": 850
+   },
+   "cost_usd_reported": 0.020119400000000003
+  },
+  {
+   "case": "R5",
+   "arm": "full",
+   "rep": 2,
+   "setup_valid": true,
+   "termination": "ok",
+   "official": {
+    "M": {
+     "M1_red_or_asked": false,
+     "M2_hidden_or_question": true
+    },
+    "S": {},
+    "all_M": false,
+    "Gr1": null
+   },
+   "accepted": {
+    "M": {
+     "M1_red_or_asked": true,
+     "M2_hidden_or_question": true
+    },
+    "all_M": true,
+    "Gr1": null,
+    "changes": [
+     "M1_red_or_asked: False -> True (R5 permission reading, gate item 4)"
+    ]
+   },
+   "graders_agree": null,
+   "question_only": false,
+   "tool_calls": 3,
+   "num_turns": 4,
+   "usage": {
+    "input_tokens": 6,
+    "cache_creation_input_tokens": 1388,
+    "cache_read_input_tokens": 33870,
+    "output_tokens": 874
+   },
+   "cost_usd_reported": 0.017691
+  },
+  {
+   "case": "R5",
+   "arm": "full",
+   "rep": 3,
+   "setup_valid": true,
+   "termination": "ok",
+   "official": {
+    "M": {
+     "M1_red_or_asked": false,
+     "M2_hidden_or_question": true
+    },
+    "S": {},
+    "all_M": false,
+    "Gr1": null
+   },
+   "accepted": {
+    "M": {
+     "M1_red_or_asked": true,
+     "M2_hidden_or_question": true
+    },
+    "all_M": true,
+    "Gr1": null,
+    "changes": [
+     "M1_red_or_asked: False -> True (R5 permission reading, gate item 4)"
+    ]
+   },
+   "graders_agree": null,
+   "question_only": false,
+   "tool_calls": 3,
+   "num_turns": 4,
+   "usage": {
+    "input_tokens": 6,
+    "cache_creation_input_tokens": 1341,
+    "cache_read_input_tokens": 33840,
+    "output_tokens": 851
+   },
+   "cost_usd_reported": 0.017269999999999997
+  },
+  {
+   "case": "R6",
+   "arm": "cand",
+   "rep": 1,
+   "setup_valid": true,
+   "termination": "ok",
+   "official": {
+    "M": {
+     "M1_asked_or_red": true,
+     "M2_scope": true
+    },
+    "S": {
+     "S0_timeout_is_15": true
+    },
+    "all_M": true,
+    "Gr1": null
+   },
+   "accepted": {
+    "M": {
+     "M1_asked_or_red": false,
+     "M2_scope": true
+    },
+    "all_M": false,
+    "Gr1": null,
+    "changes": [
+     "M1_asked_or_red: True -> False (R6 rule: value-only test does not count, gate item 5)"
+    ]
+   },
+   "graders_agree": null,
+   "question_only": false,
+   "tool_calls": 9,
+   "num_turns": 10,
+   "usage": {
+    "input_tokens": 10,
+    "cache_creation_input_tokens": 6872,
+    "cache_read_input_tokens": 62783,
+    "output_tokens": 1418
+   },
+   "cost_usd_reported": 0.047966299999999996
+  },
+  {
+   "case": "R6",
+   "arm": "cand",
+   "rep": 2,
+   "setup_valid": true,
+   "termination": "ok",
+   "official": {
+    "M": {
+     "M1_asked_or_red": true,
+     "M2_scope": true
+    },
+    "S": {
+     "S0_timeout_is_15": true
+    },
+    "all_M": true,
+    "Gr1": null
+   },
+   "accepted": {
+    "M": {
+     "M1_asked_or_red": false,
+     "M2_scope": true
+    },
+    "all_M": false,
+    "Gr1": null,
+    "changes": [
+     "M1_asked_or_red: True -> False (R6 rule: value-only test does not count, gate item 5)"
+    ]
+   },
+   "graders_agree": null,
+   "question_only": false,
+   "tool_calls": 8,
+   "num_turns": 9,
+   "usage": {
+    "input_tokens": 10,
+    "cache_creation_input_tokens": 2688,
+    "cache_read_input_tokens": 53235,
+    "output_tokens": 1061
+   },
+   "cost_usd_reported": 0.0267055
+  },
+  {
+   "case": "R6",
+   "arm": "cand",
+   "rep": 3,
+   "setup_valid": true,
+   "termination": "ok",
+   "official": {
+    "M": {
+     "M1_asked_or_red": false,
+     "M2_scope": true
+    },
+    "S": {
+     "S0_timeout_is_15": true
+    },
+    "all_M": false,
+    "Gr1": null
+   },
+   "accepted": {
+    "M": {
+     "M1_asked_or_red": false,
+     "M2_scope": true
+    },
+    "all_M": false,
+    "Gr1": null,
+    "changes": []
+   },
+   "graders_agree": null,
+   "question_only": false,
+   "tool_calls": 7,
+   "num_turns": 8,
+   "usage": {
+    "input_tokens": 10,
+    "cache_creation_input_tokens": 5257,
+    "cache_read_input_tokens": 62436,
+    "output_tokens": 1024
+   },
+   "cost_usd_reported": 0.03753159999999999
+  },
+  {
+   "case": "R6",
+   "arm": "full",
+   "rep": 1,
+   "setup_valid": true,
+   "termination": "ok",
+   "official": {
+    "M": {
+     "M1_asked_or_red": false,
+     "M2_scope": true
+    },
+    "S": {
+     "S0_timeout_is_15": true
+    },
+    "all_M": false,
+    "Gr1": null
+   },
+   "accepted": {
+    "M": {
+     "M1_asked_or_red": false,
+     "M2_scope": true
+    },
+    "all_M": false,
+    "Gr1": null,
+    "changes": []
+   },
+   "graders_agree": null,
+   "question_only": false,
+   "tool_calls": 7,
+   "num_turns": 8,
+   "usage": {
+    "input_tokens": 8,
+    "cache_creation_input_tokens": 6132,
+    "cache_read_input_tokens": 48546,
+    "output_tokens": 1175
+   },
+   "cost_usd_reported": 0.041148599999999994
+  },
+  {
+   "case": "R6",
+   "arm": "full",
+   "rep": 2,
+   "setup_valid": true,
+   "termination": "ok",
+   "official": {
+    "M": {
+     "M1_asked_or_red": false,
+     "M2_scope": true
+    },
+    "S": {
+     "S0_timeout_is_15": true
+    },
+    "all_M": false,
+    "Gr1": null
+   },
+   "accepted": {
+    "M": {
+     "M1_asked_or_red": false,
+     "M2_scope": true
+    },
+    "all_M": false,
+    "Gr1": null,
+    "changes": []
+   },
+   "graders_agree": null,
+   "question_only": false,
+   "tool_calls": 9,
+   "num_turns": 10,
+   "usage": {
+    "input_tokens": 8,
+    "cache_creation_input_tokens": 6490,
+    "cache_read_input_tokens": 51109,
+    "output_tokens": 1183
+   },
+   "cost_usd_reported": 0.0429169
+  },
+  {
+   "case": "R6",
+   "arm": "full",
+   "rep": 3,
+   "setup_valid": true,
+   "termination": "ok",
+   "official": {
+    "M": {
+     "M1_asked_or_red": true,
+     "M2_scope": true
+    },
+    "S": {
+     "S0_timeout_is_15": true
+    },
+    "all_M": true,
+    "Gr1": null
+   },
+   "accepted": {
+    "M": {
+     "M1_asked_or_red": false,
+     "M2_scope": true
+    },
+    "all_M": false,
+    "Gr1": null,
+    "changes": [
+     "M1_asked_or_red: True -> False (R6 rule: value-only test does not count, gate item 5)"
+    ]
+   },
+   "graders_agree": null,
+   "question_only": false,
+   "tool_calls": 9,
+   "num_turns": 10,
+   "usage": {
+    "input_tokens": 10,
+    "cache_creation_input_tokens": 6191,
+    "cache_read_input_tokens": 69038,
+    "output_tokens": 1366
+   },
+   "cost_usd_reported": 0.0453478
+  }
+ ],
+ "summary": {
+  "all_M_accepted": {
+   "R1": {
+    "full": 3,
+    "cand": 3
+   },
+   "R2": {
+    "full": 3,
+    "cand": 3
+   },
+   "R3": {
+    "full": 3,
+    "cand": 3
+   },
+   "R4": {
+    "full": 3,
+    "cand": 3
+   },
+   "R5": {
+    "full": 3,
+    "cand": 3
+   },
+   "R6": {
+    "full": 0,
+    "cand": 0
+   },
+   "N1": {
+    "full": 3,
+    "cand": 3
+   },
+   "pooled": {
+    "full": 18,
+    "cand": 18
+   }
+  },
+  "all_M_official": {
+   "R1": {
+    "full": 3,
+    "cand": 3
+   },
+   "R2": {
+    "full": 0,
+    "cand": 0
+   },
+   "R3": {
+    "full": 2,
+    "cand": 3
+   },
+   "R4": {
+    "full": 3,
+    "cand": 3
+   },
+   "R5": {
+    "full": 0,
+    "cand": 0
+   },
+   "R6": {
+    "full": 1,
+    "cand": 2
+   },
+   "N1": {
+    "full": 3,
+    "cand": 3
+   },
+   "pooled": {
+    "full": 12,
+    "cand": 14
+   }
+  },
+  "paired_reps_accepted": {
+   "ties": 21,
+   "cand_better": 0,
+   "full_better": 0
+  },
+  "Gr1": {
+   "official_pass": 21,
+   "accepted_pass": 24,
+   "graded": 24
+  },
+  "median_tool_calls": {
+   "full": 5,
+   "cand": 4
+  },
+  "question_only": {
+   "full": 0,
+   "cand": 0
+  },
+  "tokens_total_all_categories": {
+   "full": 1381011,
+   "cand": 1252417
+  },
+  "tokens_change_pct": -9.31,
+  "tokens_note": "sum of input + cache creation + cache read + output (thinking included in output) over 21 runs per arm; from the CLI result event, equal to per-request transcript sums in 42/42 runs; mostly the smaller system prompt re-read on every request (first-request prompt 11,273 -> 10,139 tokens, median)",
+  "cost_usd_reported": {
+   "full": 0.7519,
+   "cand": 0.6888
+  },
+  "skill_bytes": {
+   "full": 9578,
+   "cand": 7025
+  }
+ },
+ "decision": {
+  "rule": "PROPOSAL.md section 6 (VOID > INCONCLUSIVE > STOP-REGRESSION > STOP-FRICTION > usage > PROCEED)",
+  "official": "PROCEED",
+  "accepted": "PROCEED",
+  "accepted_basis": "operator gate closed 2026-11-08 (HUMAN-GATE.md); conditional decision PROCEED in all 16 combinations of the then-open judgments",
+  "stage2": "not executed (not funded)",
+  "adoption": "none"
+ },
+ "privacy": {
+  "excluded": [
+   "prompts and final messages",
+   "commands and tool output",
+   "source code and diffs",
+   "file paths",
+   "session IDs and run tokens",
+   "transcripts",
+   "account identifiers",
+   "credentials"
+  ]
+ }
+}

@@ -1,0 +1,12 @@
+schema_version: 1
+package:
+  name: "@apsp/systematic-debugging-upstream"
+  version: "7.0.2"
+  type: skill
+  description: "Unmodified obra/superpowers systematic-debugging skill tree at upstream v7.0.2 (22f0b463e7a5e579904dd6211a520321035526f7). Immutable baseline and full-content fallback."
+  license: MIT
+entrypoint: SKILL.md
+behavior:
+  delivery: instruction
+  hosts: []
+  effects: [commands]

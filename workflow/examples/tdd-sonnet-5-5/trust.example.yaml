@@ -1,0 +1,7 @@
+# Example trial-scoped AP machine policy. Pass it with AGENT_PROFILES_TRUST for
+# commands against a disposable consumer and store. Do not edit your home
+# ~/.agent-profiles/trust.yaml for a trial.
+version: 1
+require_approval: false
+namespaces: ["@apsp/*"]
+effects: [commands]

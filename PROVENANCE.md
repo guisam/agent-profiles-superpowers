@@ -142,3 +142,93 @@ for p in SKILL.md builder-check-prompt.md visual-companion.md scripts/*; do
 (cd packages/brainstorming-upstream/7.0.2 && find . -type f | sort | xargs sha256sum)
 npx --no agent-profiles add @apsp/brainstorming-upstream@7.0.2 --source packages/brainstorming-upstream/7.0.2 --store <throwaway-store> --json
 ```
+
+## systematic-debugging (added 2026-11-08, experiment `apsp-sd-001`)
+
+Source: obra/superpowers v7.0.2 `22f0b46`, `skills/systematic-debugging/`
+(MIT). `SKILL.md` blob `62fc752a` is identical at v7.0.0, v7.0.1 and v7.0.2,
+so the study's 2026-11-04 checkout almost certainly measured these bytes. Two
+dataset atoms carry spans that point at code-fence lines (`L16`, `L88`); they
+were mapped by content to L76-80 and L97-100 (see
+`experiments/systematic-debugging-compaction/CONTRACT.md`).
+
+Files were written from `git cat-file blob` and rechecked with `git hash-object`
+against the upstream blob IDs (all match):
+
+| Path | Upstream blob | Baseline 7.0.2 sha256 | Candidate 0.1.0 |
+| --- | --- | --- | --- |
+| `SKILL.md` | `62fc752a` | `51c6435d…` | `d0ccf6df…` (Phase 1-3 compacted, Quick Reference removed; see RATIONALE) |
+| `condition-based-waiting-example.ts` | `703a06b6` | `40ae5ebe…` | same |
+| `condition-based-waiting.md` | `70994f77` | `e89fec84…` | same |
+| `defense-in-depth.md` | `e2483354` | `1e175fb8…` | same |
+| `find-polluter.sh` (mode 755 upstream) | `985f5d08` | `dd7b8f13…` | same |
+| `root-cause-tracing.md` | `0e72e8f9` | `75b933b6…` | same |
+| `LICENSE` (repo root upstream) | `abf03903` | `a37e0e96…` | same |
+| `package.yaml` | added | `876c6683…` | `f23a6165…` |
+
+AP 0.19.4 digests: `@apsp/systematic-debugging-upstream@7.0.2`
+`f758787e9160ad1e1030825904a80d2dfdfdd57a5e0d60d163ecb4c697ca0005`;
+`@apsp/systematic-debugging-sonnet-5-5@0.1.0`
+`ed798698e88a2b762104faa2871f60628cbcabb242543f9eca17a9c079091a18`
+(throwaway store; the home store is untouched).
+
+Dependency closure: the in-tree resources are complete. `find-polluter.sh` has
+an upstream test (`tests/systematic-debugging/test-find-polluter.sh`); it is not
+packaged and the script was not executed. The cross-skill names
+`superpowers:test-driven-development` and
+`superpowers:verification-before-completion` are **not packaged** (known gap,
+same class as `writing-plans`).
+
+Host note: this machine's account-synced Superpowers plugin is **6.4.2**, whose
+`systematic-debugging/SKILL.md` differs from 7.0.2 (blob `095d194a`: the
+pre-#2375 example that prints the secret) and still installs the pressure-test
+prompts next to the skill.
+
+## test-driven-development (added 2026-11-08, experiment `apsp-tdd-001`)
+
+Source: obra/superpowers v7.0.2 `22f0b46`, `skills/test-driven-development/`
+(MIT). `SKILL.md` blob `46838cc9` and `writing-good-tests.md` blob `d3c4482f`
+are identical at v6.4.1, v7.0.0, v7.0.1 and v7.0.2, so the study's 2026-11-04
+checkout measured these bytes. All 25 probed atoms' spans were mapped by
+content (see `experiments/tdd-compaction/CONTRACT.md`).
+
+Files were written from `git cat-file blob` and rechecked with `git hash-object`
+against the upstream blob IDs (all match):
+
+| Path | Upstream blob | Baseline 7.0.2 sha256 | Candidate 0.1.0 |
+| --- | --- | --- | --- |
+| `SKILL.md` | `46838cc9` | `64b03fce…` | `4117a24e…` (diagram and worked examples removed; see RATIONALE) |
+| `writing-good-tests.md` | `d3c4482f` | `51471c85…` | same |
+| `LICENSE` (repo root upstream) | `abf03903` | `a37e0e96…` | same |
+| `package.yaml` | added | `ef1e24cc…` | `f0df317a…` |
+
+AP 0.19.4 digests (throwaway store; the home store is untouched):
+`@apsp/test-driven-development-upstream@7.0.2`
+`ce680b8a2f3c31a12dad8b1d2c6917649b268149969a80fbea13dc4d0ab640f3`;
+`@apsp/test-driven-development-sonnet-5-5@0.1.0`
+`bd446f965112f984517f91a56e47fb8ddcf40686a3310cbeae62d0a36f524052`
+(reproduced on a second `add`).
+
+Dependency closure: complete in-tree (one reference file, no scripts).
+`writing-good-tests.md` names `superpowers:writing-skills`, which is **not
+packaged** (known gap, same class as `writing-plans`).
+
+Host note: the account-synced Superpowers plugin on this machine carries a
+byte-identical TDD `SKILL.md` (blob `46838cc9`). Any trial must prove that it
+is absent from children (PROPOSAL §3).
+
+### Workflow identities and method (added 2026-11-08, closeout)
+
+- Machine-readable pins for both TDD packages are in
+  `workflow/examples/tdd-sonnet-5-5/IDENTITIES.json`: the upstream commit,
+  the blob IDs, full per-file sha256 values and the AP 0.19.4 digests. They
+  are rechecked by `workflow/tools/verify_delivery.py`.
+- The candidate was prepared with the AP `skill-compaction` preset 1.0.5
+  (Apache-2.0). Its `SKILL.md` sha256 is
+  `989b59b983c3d3ad047711e002269042ec788a49d8348e73d97392eeec68dc7d`. At the
+  time, the preset was untracked in the local Agent-Profiles checkout. It is
+  referenced, not copied.
+- Redistribution boundaries are unchanged:
+  - upstream MIT `LICENSE` in every package;
+  - Petrov's dataset linked and summarized only (no license);
+  - nothing published.

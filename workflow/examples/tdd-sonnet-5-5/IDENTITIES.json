@@ -1,0 +1,46 @@
+{
+ "schema": "apsp-identities/1",
+ "skill": "test-driven-development",
+ "upstream": {
+  "repository": "https://github.com/obra/superpowers",
+  "tag": "v7.0.2",
+  "commit": "22f0b463e7a5e579904dd6211a520321035526f7",
+  "license": "MIT (upstream LICENSE kept in every package)",
+  "files": {
+   "skills/test-driven-development/SKILL.md": {"git_blob": "46838cc9e893c06259e3bdad0fc2425b36242f15"},
+   "skills/test-driven-development/writing-good-tests.md": {"git_blob": "d3c4482fd30b4f9084bb61545fe73939a7502c28"},
+   "LICENSE": {"git_blob": "abf0390320aa14406af7a520b9b0739fdda9bf08"}
+  }
+ },
+ "packages": {
+  "@apsp/test-driven-development-upstream@7.0.2": {
+   "role": "baseline (default for every model)",
+   "path": "packages/test-driven-development-upstream/7.0.2",
+   "ap_0_19_4_digest": "ce680b8a2f3c31a12dad8b1d2c6917649b268149969a80fbea13dc4d0ab640f3",
+   "files": {
+    "SKILL.md": {"sha256": "64b03fce4aee5a97a93160cea8111f3ba13a17b7c001db4bd5836d67fd10705d", "git_blob": "46838cc9e893c06259e3bdad0fc2425b36242f15", "bytes": 9578},
+    "writing-good-tests.md": {"sha256": "51471c853306ff92ca8bb41dcaea05f31c0e46b03651f8f3c99754b7172f4ae1", "git_blob": "d3c4482fd30b4f9084bb61545fe73939a7502c28", "bytes": 8268},
+    "LICENSE": {"sha256": "a37e0e9697144819e1d965176ac4ae5bc3fa02d11e7812036bbcadf6dafe2400", "git_blob": "abf0390320aa14406af7a520b9b0739fdda9bf08"},
+    "package.yaml": {"sha256": "ef1e24cc72af4cdc261fc8b39973e3449fe64c93638d918f12c32dc8e8700497"}
+   }
+  },
+  "@apsp/test-driven-development-sonnet-5-5@0.1.0": {
+   "role": "candidate for claude-sonnet-5-5 only; NOT adopted (screening only, see experiments/tdd-compaction/CLOSEOUT.md)",
+   "path": "packages/test-driven-development-sonnet-5-5/0.1.0",
+   "ap_0_19_4_digest": "bd446f965112f984517f91a56e47fb8ddcf40686a3310cbeae62d0a36f524052",
+   "derived_from": "@apsp/test-driven-development-upstream@7.0.2",
+   "files": {
+    "SKILL.md": {"sha256": "4117a24ece8a96e14c2f286dd39ebba79fd98104e551ac28328159229af98fd4", "git_blob": "8c72b5f151914c2e9c2faf3ad3978ee8b994651b", "bytes": 7025},
+    "writing-good-tests.md": {"sha256": "51471c853306ff92ca8bb41dcaea05f31c0e46b03651f8f3c99754b7172f4ae1", "git_blob": "d3c4482fd30b4f9084bb61545fe73939a7502c28", "bytes": 8268},
+    "LICENSE": {"sha256": "a37e0e9697144819e1d965176ac4ae5bc3fa02d11e7812036bbcadf6dafe2400", "git_blob": "abf0390320aa14406af7a520b9b0739fdda9bf08"},
+    "package.yaml": {"sha256": "f0df317a6fc78aa8cf247887713257ea4cd8889878fdb04885e6f9ecbe5c66d1"}
+   }
+  }
+ },
+ "method": {
+  "skill_compaction_preset": "Agent-Profiles examples/presets/skill-compaction 1.0.5 (untracked in the local AP checkout at the time)",
+  "skill_compaction_SKILL_md_sha256": "989b59b983c3d3ad047711e002269042ec788a49d8348e73d97392eeec68dc7d"
+ },
+ "ap_version": "@guisam/agent-profiles 0.19.4 (npm latest at the time)",
+ "dependencies_not_packaged": ["superpowers:writing-skills (named by writing-good-tests.md)"]
+}

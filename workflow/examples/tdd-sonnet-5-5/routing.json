@@ -1,0 +1,13 @@
+{
+ "skill": "test-driven-development",
+ "role": "implementer",
+ "baseline": "@apsp/test-driven-development-upstream@7.0.2",
+ "cases": [
+  {"model": "claude-sonnet-5-5", "expect": "@apsp/test-driven-development-sonnet-5-5@0.1.0"},
+  {"model": "claude-haiku-5-5", "expect": "@apsp/test-driven-development-upstream@7.0.2"},
+  {"model": "claude-opus-5-5", "expect": "@apsp/test-driven-development-upstream@7.0.2"},
+  {"model": "claude-sonnet-5", "expect": "@apsp/test-driven-development-upstream@7.0.2"},
+  {"model": "some-unlisted-model", "expect": "@apsp/test-driven-development-upstream@7.0.2"},
+  {"model": null, "expect": "@apsp/test-driven-development-upstream@7.0.2"}
+ ]
+}

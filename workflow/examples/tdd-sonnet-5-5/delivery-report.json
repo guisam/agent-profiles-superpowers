@@ -1,0 +1,174 @@
+{
+ "ap_calls": 43,
+ "ap_cmd": "AP_CMD override (path not recorded)",
+ "ap_version_output": "0.19.4",
+ "checks": {
+  "package @apsp/test-driven-development-sonnet-5-5@0.1.0": {
+   "ap_digest": "bd446f965112f984517f91a56e47fb8ddcf40686a3310cbeae62d0a36f524052",
+   "digest_matches_pin": true,
+   "file_hash_mismatches": {},
+   "unpinned_files": []
+  },
+  "package @apsp/test-driven-development-upstream@7.0.2": {
+   "ap_digest": "ce680b8a2f3c31a12dad8b1d2c6917649b268149969a80fbea13dc4d0ab640f3",
+   "digest_matches_pin": true,
+   "file_hash_mismatches": {},
+   "unpinned_files": []
+  },
+  "resources": {
+   "claude-haiku-5-5": {
+    "export_complete": true,
+    "export_files_match": {
+     "LICENSE": true,
+     "SKILL.md": true,
+     "package.yaml": true,
+     "writing-good-tests.md": true
+    },
+    "export_package_dirs": 1,
+    "library_read_matches": {
+     "LICENSE": true,
+     "writing-good-tests.md": true
+    },
+    "stamp": "51ab03be72ffffbdc316bf95f8b9bd0759e236cd3ef38e7e0cfdd8e8cba7eade"
+   },
+   "claude-opus-5-5": {
+    "export_complete": true,
+    "export_files_match": {
+     "LICENSE": true,
+     "SKILL.md": true,
+     "package.yaml": true,
+     "writing-good-tests.md": true
+    },
+    "export_package_dirs": 1,
+    "library_read_matches": {
+     "LICENSE": true,
+     "writing-good-tests.md": true
+    },
+    "stamp": "08fc33a23044fb629b0f66b40269e2fc80e1ad085df80e9ee22a5c74ca82b61f"
+   },
+   "claude-sonnet-5": {
+    "export_complete": true,
+    "export_files_match": {
+     "LICENSE": true,
+     "SKILL.md": true,
+     "package.yaml": true,
+     "writing-good-tests.md": true
+    },
+    "export_package_dirs": 1,
+    "library_read_matches": {
+     "LICENSE": true,
+     "writing-good-tests.md": true
+    },
+    "stamp": "7ae38b2ffc4189b04a7530f32281126d5245a1cf207df15d8c7812a275abcceb"
+   },
+   "claude-sonnet-5-5": {
+    "export_complete": true,
+    "export_files_match": {
+     "LICENSE": true,
+     "SKILL.md": true,
+     "package.yaml": true,
+     "writing-good-tests.md": true
+    },
+    "export_package_dirs": 1,
+    "library_read_matches": {
+     "LICENSE": true,
+     "writing-good-tests.md": true
+    },
+    "stamp": "a979541c1b938be65c39a4350f1302ab668ff0c817a5f020b48d5233b5df303f"
+   },
+   "some-unlisted-model": {
+    "export_complete": true,
+    "export_files_match": {
+     "LICENSE": true,
+     "SKILL.md": true,
+     "package.yaml": true,
+     "writing-good-tests.md": true
+    },
+    "export_package_dirs": 1,
+    "library_read_matches": {
+     "LICENSE": true,
+     "writing-good-tests.md": true
+    },
+    "stamp": "62c0103ea2ba8ec450a99759d9c5dd4682b2e40cc99f0eaed9e154ce86b038d5"
+   }
+  },
+  "rollback": {
+   "<unstated>": {
+    "ok": true,
+    "selected": "@apsp/test-driven-development-upstream@7.0.2"
+   },
+   "claude-haiku-5-5": {
+    "ok": true,
+    "selected": "@apsp/test-driven-development-upstream@7.0.2"
+   },
+   "claude-opus-5-5": {
+    "ok": true,
+    "selected": "@apsp/test-driven-development-upstream@7.0.2"
+   },
+   "claude-sonnet-5": {
+    "ok": true,
+    "selected": "@apsp/test-driven-development-upstream@7.0.2"
+   },
+   "claude-sonnet-5-5": {
+    "ok": true,
+    "selected": "@apsp/test-driven-development-upstream@7.0.2"
+   },
+   "some-unlisted-model": {
+    "ok": true,
+    "selected": "@apsp/test-driven-development-upstream@7.0.2"
+   }
+  },
+  "routing_and_text": {
+   "<unstated>": {
+    "expected": "@apsp/test-driven-development-upstream@7.0.2",
+    "other_arm_text_absent": true,
+    "routing_ok": true,
+    "selected": "@apsp/test-driven-development-upstream@7.0.2",
+    "selected_digest": "ce680b8a2f3c31a12dad8b1d2c6917649b268149969a80fbea13dc4d0ab640f3",
+    "skill_text_exact": true
+   },
+   "claude-haiku-5-5": {
+    "expected": "@apsp/test-driven-development-upstream@7.0.2",
+    "other_arm_text_absent": true,
+    "routing_ok": true,
+    "selected": "@apsp/test-driven-development-upstream@7.0.2",
+    "selected_digest": "ce680b8a2f3c31a12dad8b1d2c6917649b268149969a80fbea13dc4d0ab640f3",
+    "skill_text_exact": true
+   },
+   "claude-opus-5-5": {
+    "expected": "@apsp/test-driven-development-upstream@7.0.2",
+    "other_arm_text_absent": true,
+    "routing_ok": true,
+    "selected": "@apsp/test-driven-development-upstream@7.0.2",
+    "selected_digest": "ce680b8a2f3c31a12dad8b1d2c6917649b268149969a80fbea13dc4d0ab640f3",
+    "skill_text_exact": true
+   },
+   "claude-sonnet-5": {
+    "expected": "@apsp/test-driven-development-upstream@7.0.2",
+    "other_arm_text_absent": true,
+    "routing_ok": true,
+    "selected": "@apsp/test-driven-development-upstream@7.0.2",
+    "selected_digest": "ce680b8a2f3c31a12dad8b1d2c6917649b268149969a80fbea13dc4d0ab640f3",
+    "skill_text_exact": true
+   },
+   "claude-sonnet-5-5": {
+    "expected": "@apsp/test-driven-development-sonnet-5-5@0.1.0",
+    "other_arm_text_absent": true,
+    "routing_ok": true,
+    "selected": "@apsp/test-driven-development-sonnet-5-5@0.1.0",
+    "selected_digest": "bd446f965112f984517f91a56e47fb8ddcf40686a3310cbeae62d0a36f524052",
+    "skill_text_exact": true
+   },
+   "some-unlisted-model": {
+    "expected": "@apsp/test-driven-development-upstream@7.0.2",
+    "other_arm_text_absent": true,
+    "routing_ok": true,
+    "selected": "@apsp/test-driven-development-upstream@7.0.2",
+    "selected_digest": "ce680b8a2f3c31a12dad8b1d2c6917649b268149969a80fbea13dc4d0ab640f3",
+    "skill_text_exact": true
+   }
+  }
+ },
+ "ok": true,
+ "tool": "verify_delivery"
+}

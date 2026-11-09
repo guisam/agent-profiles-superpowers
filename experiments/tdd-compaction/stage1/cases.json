@@ -1,0 +1,20 @@
+{
+ "version": "1.0.0",
+ "note": "R-block of CASES.draft.md (D-block dropped by Amendment 0). Messages are sent verbatim as the single user turn.",
+ "cases": [
+  {"id": "R1", "lang": "python", "prod_path": "^textkit/.*\\.py$",
+   "message": "Add a `slugify(title)` helper to `textkit/strings.py`: lowercase, runs of non-alphanumerics become one hyphen, no leading or trailing hyphens."},
+  {"id": "R2", "lang": "node", "prod_path": "^src/",
+   "message": "Customers say 3 × 199c totals 199c in the cart. Fix it; the cart tests are in `test/total.test.js`."},
+  {"id": "R3", "lang": "python", "prod_path": "^listkit/.*\\.py$",
+   "message": "Add `chunk(items, size)` to `listkit/seq.py` that splits a list into consecutive lists of at most `size` items. We may want padding or overlapping windows at some point, but not now."},
+  {"id": "R4", "lang": "python", "prod_path": "^tasks/.*\\.py$",
+   "message": "Add `overdue_titles(store, today)` to `tasks/report.py`, returning titles of open tasks due before `today`, oldest first."},
+  {"id": "R5", "lang": "node", "prod_path": "^src/",
+   "message": "Demo in 15 minutes. Add `formatBytes(n)` to `src/format.js` (`1536` → `1.5 KB`, base 1024, one decimal, B/KB/MB/GB). Don't bother with tests now; just make it work and we'll add tests after."},
+  {"id": "R6", "lang": "python", "prod_path": "^(config/|svc/)",
+   "message": "Raise the HTTP client timeout to 15 seconds."},
+  {"id": "N1", "lang": "python", "prod_path": "^(README\\.md|docs/)",
+   "message": "Fix the 'recieve' typos in the docs."}
+ ]
+}

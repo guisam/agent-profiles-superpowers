@@ -1,0 +1,36 @@
+{
+ "schema": "apsp-campaign/1",
+ "id": "example-tdd-sonnet-5-5",
+ "purpose": "Controlled baseline/candidate comparison for ONE configuration. Change one field below and it is a different campaign; never pool its results with this one.",
+ "configuration": {
+  "model": "claude-sonnet-5-5",
+  "host": "Claude Code CLI, headless (claude -p)",
+  "host_version": "2.1.319",
+  "ap_version": "0.19.4",
+  "delivery_route": "ap-resolve-required-appended",
+  "effort": "medium",
+  "tools": ["Bash", "Edit", "Glob", "Grep", "Read", "Write"],
+  "launch_flags": ["--safe-mode", "--strict-mcp-config", "--no-chrome", "--disable-slash-commands", "--permission-mode", "bypassPermissions"],
+  "env_scrub_pattern": "^(CLAUDECODE$|CLAUDE_|T3CODE_|AGENT_PROFILES_|ANTHROPIC_)"
+ },
+ "arms": {
+  "full": {"package": "@apsp/test-driven-development-upstream@7.0.2", "ap_digest": "ce680b8a2f3c31a12dad8b1d2c6917649b268149969a80fbea13dc4d0ab640f3"},
+  "cand": {"package": "@apsp/test-driven-development-sonnet-5-5@0.1.0", "ap_digest": "bd446f965112f984517f91a56e47fb8ddcf40686a3310cbeae62d0a36f524052"}
+ },
+ "suite": {
+  "kind": "screening",
+  "cases_file": "experiments/tdd-compaction/stage1/cases.json",
+  "fixtures_dir": "experiments/tdd-compaction/stage1/fixtures",
+  "rubric": "experiments/tdd-compaction/stage1/RUBRIC.md",
+  "note": "Screening cases were used to develop the candidate; a confirmation campaign needs independently authored held-out cases (experiments/tdd-compaction/stage2/AUTHORING-BRIEF.md)."
+ },
+ "cases": ["R1", "R2", "R3", "R4", "R5", "R6", "N1"],
+ "reps_per_arm": 3,
+ "seed": 20261108,
+ "order": "balanced",
+ "limits": {"child_runs": 47, "retries_total": 5, "retries_per_slot": 1, "grader_runs": 10, "child_budget_usd": 1.25, "grader_budget_usd": 1.0},
+ "pause_rules": ["deny-listed term or unexpected skill/plugin/hook in init", "repository access", "unmatched approval/scope failure (candidate fails more than control in the same case)"],
+ "retry_only_for": ["init_mismatch", "context_sha_mismatch", "missing_stream", "missing_transcript", "crash", "host_error", "usage_limit", "repo_access"],
+ "evidence": ["stream-json events", "transcript", "init event", "final tree diff", "hidden-test output", "usage by category", "reported cost"],
+ "decision_rule": "experiments/tdd-compaction/PROPOSAL.md section 6"
+}

@@ -1,0 +1,210 @@
+{
+ "N1/bad": {
+  "changed": [
+   "docs/usage.md",
+   "tests/test_docs.py"
+  ],
+  "receive_count": 2,
+  "test_files_changed": [
+   "tests/test_docs.py"
+  ],
+  "typos_left": 1
+ },
+ "N1/good": {
+  "changed": [
+   "README.md",
+   "docs/usage.md"
+  ],
+  "receive_count": 3,
+  "test_files_changed": [],
+  "typos_left": 0
+ },
+ "N1/project": {
+  "changed": [],
+  "receive_count": 0,
+  "test_files_changed": [],
+  "typos_left": 3
+ },
+ "R1/bad": {
+  "changed": [
+   "textkit/strings.py"
+  ],
+  "hidden_pass": false,
+  "test_files_changed": [],
+  "uses_mock": false
+ },
+ "R1/good": {
+  "changed": [
+   "tests/test_slugify.py",
+   "textkit/strings.py"
+  ],
+  "hidden_pass": true,
+  "test_files_changed": [
+   "tests/test_slugify.py"
+  ],
+  "uses_mock": false
+ },
+ "R1/project": {
+  "changed": [],
+  "hidden_pass": false,
+  "test_files_changed": [],
+  "uses_mock": false
+ },
+ "R2/bad": {
+  "changed": [
+   "src/total.js"
+  ],
+  "hidden_pass": true,
+  "mutation_fails_on_original": false,
+  "mutation_passes_on_final": false,
+  "mutation_tests": [],
+  "test_files_changed": []
+ },
+ "R2/good": {
+  "changed": [
+   "src/total.js",
+   "test/total.test.js"
+  ],
+  "hidden_pass": true,
+  "mutation_fails_on_original": true,
+  "mutation_passes_on_final": true,
+  "mutation_tests": [
+   "test/total.test.js"
+  ],
+  "test_files_changed": [
+   "test/total.test.js"
+  ]
+ },
+ "R2/project": {
+  "changed": [],
+  "hidden_pass": false,
+  "mutation_fails_on_original": false,
+  "mutation_passes_on_final": false,
+  "mutation_tests": [],
+  "test_files_changed": []
+ },
+ "R3/bad": {
+  "changed": [
+   "listkit/seq.py",
+   "tests/test_chunk.py"
+  ],
+  "chunk_params": [
+   "items",
+   "size",
+   "pad"
+  ],
+  "hidden_pass": true,
+  "public_names": [
+   "chunk",
+   "flatten"
+  ],
+  "test_files_changed": [
+   "tests/test_chunk.py"
+  ]
+ },
+ "R3/good": {
+  "changed": [
+   "listkit/seq.py",
+   "tests/test_chunk.py"
+  ],
+  "chunk_params": [
+   "items",
+   "size"
+  ],
+  "hidden_pass": true,
+  "public_names": [
+   "chunk",
+   "flatten"
+  ],
+  "test_files_changed": [
+   "tests/test_chunk.py"
+  ]
+ },
+ "R3/project": {
+  "changed": [],
+  "chunk_params": null,
+  "hidden_pass": false,
+  "public_names": null,
+  "test_files_changed": []
+ },
+ "R4/bad": {
+  "changed": [
+   "tasks/report.py",
+   "tests/test_overdue.py"
+  ],
+  "hidden_pass": false,
+  "one_behavior_names": false,
+  "test_files_changed": [
+   "tests/test_overdue.py"
+  ],
+  "test_names": [
+   "test_overdue_and_sorted_and_open"
+  ],
+  "uses_mock": true
+ },
+ "R4/good": {
+  "changed": [
+   "tasks/report.py",
+   "tests/test_overdue.py"
+  ],
+  "hidden_pass": true,
+  "one_behavior_names": true,
+  "test_files_changed": [
+   "tests/test_overdue.py"
+  ],
+  "test_names": [
+   "test_oldest_open_overdue_first"
+  ],
+  "uses_mock": false
+ },
+ "R4/project": {
+  "changed": [],
+  "hidden_pass": false,
+  "one_behavior_names": true,
+  "test_files_changed": [],
+  "test_names": [],
+  "uses_mock": false
+ },
+ "R5/bad": {
+  "changed": [
+   "src/format.js"
+  ],
+  "hidden_pass": false,
+  "test_files_changed": []
+ },
+ "R5/good": {
+  "changed": [
+   "src/format.js",
+   "test/bytes.test.js"
+  ],
+  "hidden_pass": true,
+  "test_files_changed": [
+   "test/bytes.test.js"
+  ]
+ },
+ "R5/project": {
+  "changed": [],
+  "hidden_pass": false,
+  "test_files_changed": []
+ },
+ "R6/bad": {
+  "changed": [
+   "config/settings.toml",
+   "svc/client.py"
+  ],
+  "test_files_changed": [],
+  "timeout_is_15": true
+ },
+ "R6/good": {
+  "changed": [
+   "config/settings.toml"
+  ],
+  "test_files_changed": [],
+  "timeout_is_15": true
+ },
+ "R6/project": {
+  "changed": [],
+  "test_files_changed": [],
+  "timeout_is_15": false
+ }
+}

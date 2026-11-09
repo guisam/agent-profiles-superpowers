@@ -1,0 +1,51 @@
+{
+ "0b301e47": [
+  {
+   "command": "cat textkit/strings.py; ls . tests 2>/dev/null; cat ../skill/writing-good-tests.md",
+   "exit": 0,
+   "output": "t a decision |\n| Build an expected value | Derive it by hand; never with the code under test |\n| Test a script or document | Run it / pressure-test its consumer; never grep its text |\n| Reach for a dependency test | Test your boundary contract, not their documented mechanics |\n| Want to assert on a mocked element | Test the real component, or unmock it |\n| Are about to mock a method | Learn its side effects; mock the slow/external level |\n| Build a mock response | Mirror the real structure completely |\n| Need cleanup only tests use | Put it in test utilities |\n| Watch mock setup balloon | Switch to an integration test with real components |\n| Finish a test file | Run the mutation check |\n\n## Warning Signs\n\n- Setup and assertion share the same object, guaranteeing equality\n- The test can fail only through a panic, crash, or missing selector\n- The test fails on every intentional change, never on accidental breakage\n- Expected values are hidden behind loops, builders, or helpers\n- The test greps source text, or asserts a removed symbol stays removed\n- The test would still matter if only the framework remained\n- The test exists for coverage, checking no side effect or outcome\n- An assertion checks a `*-mock` test ID, or fails if you remove the mock\n- A method is called only from test files\n- Mock setup is more than half the test, or you can't explain why the mock is needed\n- Mocking \"just to be safe\"\nShell cwd was reset to C:/RUN\\project"
+  },
+  {
+   "command": "cat tests/test_strings.py",
+   "exit": 0,
+   "output": "import unittest\n\nfrom textkit.strings import truncate\n\n\nclass TruncateTest(unittest.TestCase):\n    def test_short_text_is_unchanged(self):\n        self.assertEqual(truncate(\"abc\", 5), \"abc\")\n\n    def test_long_text_ends_with_ellipsis(self):\n        self.assertEqual(truncate(\"abcdefgh\", 6), \"abc...\")\n\n    def test_tiny_width_cuts_the_ellipsis(self):\n        self.assertEqual(truncate(\"abcdefgh\", 2), \"..\")\n\n\nif __name__ == \"__main__\":\n    unittest.main()\nShell cwd was reset to C:/RUN\\project"
+  },
+  {
+   "command": "python - <<'EOF'\np='tests/test_strings.py'\ns=open(p).read()\ns=s.replace(\"import truncate\",\"import slugify, truncate\")\ns=s.replace('''\n\nif __name__''','''\n\nclass SlugifyTest(unittest.TestCase):\n    def test_slugify_cases(self):\n        cases = [\n            (\"Hello World\", \"hello-world\"),\n            (\"a  --  b!!c\", \"a-b-c\"),\n            (\"  --Hello, World!--  \", \"hello-world\"),\n            (\"Python 3.12 Release\", \"python-3-12-release\"),\n            (\"snake_case_name\", \"snake-case-name\"),\n            (\"!!!\", \"\"),\n            (\"\", \"\"),\n        ]\n        for title, want in cases:\n            with self.subTest(title=title):\n                self.assertEqual(slugify(title), want)\n\n\nif __name__''')\nopen(p,'w').write(s)\nEOF\npython -m unittest 2>&1 | tail -5",
+   "exit": 0,
+   "output": "----------------------------------------------------------------------\r\nRan 1 test in 0.000s\r\n\r\nFAILED (errors=1)\nShell cwd was reset to C:/RUN\\project"
+  },
+  {
+   "command": "python - <<'EOF'\np='textkit/strings.py'\ns=open(p).read()\ns=s.replace('\"\"\"String helpers.\"\"\"\\n','\"\"\"String helpers.\"\"\"\\n\\nimport re\\n',1)\ns+='''\n\ndef slugify(title):\n    \"\"\"Lowercase title, collapsing runs of non-alphanumerics into single hyphens.\"\"\"\n    return re.sub(r\"[\\\\W_]+\", \"-\", title.lower()).strip(\"-\")\n'''\nopen(p,'w').write(s)\nEOF\npython -m unittest 2>&1 | tail -5",
+   "exit": 0,
+   "output": "<stdin>:8: SyntaxWarning: \"\\W\" is an invalid escape sequence. Such sequences will not work in the future. Did you mean \"\\\\W\"? A raw string is also an option.\r\n....\r\n----------------------------------------------------------------------\r\nRan 4 tests in 0.000s\r\n\r\nOK\nShell cwd was reset to C:/RUN\\project"
+  },
+  {
+   "command": "tail -4 textkit/strings.py; python -W error -m unittest 2>&1 | tail -3",
+   "exit": 0,
+   "output": "def slugify(title):\r\n    \"\"\"Lowercase title, collapsing runs of non-alphanumerics into single hyphens.\"\"\"\r\n    return re.sub(r\"[\\W_]+\", \"-\", title.lower()).strip(\"-\")\r\nRan 4 tests in 0.000s\r\n\r\nOK\nShell cwd was reset to C:/RUN\\project"
+  }
+ ],
+ "9ec4a24a": [
+  {
+   "command": "cd C:/RUN/project && ls -R . | grep -v .git | head -50; cat textkit/strings.py; cat ../skill/writing-good-tests.md | head -60",
+   "exit": 0,
+   "output": "always true\nconst expected = buildSearchQuery({ tag: 'urgent' });\nexpect(buildSearchQuery({ tag: 'urgent' })).toBe(expected);\n\n// \u2705 Hand-derived literal\nexpect(buildSearchQuery({ tag: 'urgent' })).toBe('tag:\"urgent\"');\n```\n\n**No change detectors.** If only intentional decisions can fail a test \u2014\na constant's value, exact message wording, private structure \u2014 it fires\non redesign and sleeps through bugs. Test the behavior that depends on\nthe decision: not `expect(MAX_RETRIES).toBe(5)` but \"a failing call is\nretried 5 times and the 6th attempt never happens.\"\n\n**Behavior, not text.** Asserting that a script, skill, or config\ncontains an exact line proves only that the source is the source. Run\nscripts against controlled inputs and assert outputs, side effects, or\nexit codes. Documents that instruct agents are tested by the consuming\nagent's behavior (superpowers:writing-skills); prose for humans earns no\ntest at all.\n\n**Your code, not the framework.** Test the contract your code makes at\nits boundaries \u2014 the route you register, the query you emit, the payload\nyou produce. Upstream mechanics are their maintainers' tests to write\n(the classic: asserting your router invokes a registered handler \u2014 that\nis the framework's test, not yours). When upstream behavior genuinely\nsurprised you, write one narrow characterization test naming the\nassumption. The same boundary applies inside your code: constructors,\nShell cwd was reset to C:/RUN\\project"
+  },
+  {
+   "command": "cd C:/RUN/project && cat tests/test_strings.py",
+   "exit": 0,
+   "output": "import unittest\n\nfrom textkit.strings import truncate\n\n\nclass TruncateTest(unittest.TestCase):\n    def test_short_text_is_unchanged(self):\n        self.assertEqual(truncate(\"abc\", 5), \"abc\")\n\n    def test_long_text_ends_with_ellipsis(self):\n        self.assertEqual(truncate(\"abcdefgh\", 6), \"abc...\")\n\n    def test_tiny_width_cuts_the_ellipsis(self):\n        self.assertEqual(truncate(\"abcdefgh\", 2), \"..\")\n\n\nif __name__ == \"__main__\":\n    unittest.main()\nShell cwd was reset to C:/RUN\\project"
+  },
+  {
+   "command": "cd C:/RUN/project && python - <<'EOF'\np='tests/test_strings.py'\ns=open(p).read()\ns=s.replace(\"import truncate\",\"import slugify, truncate\")\ns=s.replace('''\n\nif __name__''','''\n\nclass SlugifyTest(unittest.TestCase):\n    def test_table(self):\n        cases = [\n            (\"Hello World\", \"hello-world\"),\n            (\"a  --  b!!c\", \"a-b-c\"),\n            (\"  Hello, World!  \", \"hello-world\"),\n            (\"***\", \"\"),\n            (\"\", \"\"),\n            (\"Python 3.12\", \"python-3-12\"),\n        ]\n        for title, want in cases:\n            with self.subTest(title=title):\n                self.assertEqual(slugify(title), want)\n\n\nif __name__''')\nopen(p,'w').write(s)\nEOF\npython -m unittest 2>&1 | tail -5",
+   "exit": 0,
+   "output": "----------------------------------------------------------------------\r\nRan 1 test in 0.000s\r\n\r\nFAILED (errors=1)\nShell cwd was reset to C:/RUN\\project"
+  },
+  {
+   "command": "cd C:/RUN/project && python - <<'EOF'\np='textkit/strings.py'\ns=open(p).read()\ns=s.replace('\"\"\"String helpers.\"\"\"\\n','\"\"\"String helpers.\"\"\"\\n\\nimport re\\n',1)\ns+='''\n\ndef slugify(title):\n    \"\"\"Lowercase title, collapsing runs of non-alphanumerics into single hyphens.\"\"\"\n    return re.sub(r\"[^a-z0-9]+\", \"-\", title.lower()).strip(\"-\")\n'''\nopen(p,'w').write(s)\nEOF\npython -m unittest -v 2>&1 | tail -12",
+   "exit": 0,
+   "output": "test_table (tests.test_strings.SlugifyTest.test_table) ... ok\r\ntest_long_text_ends_with_ellipsis (tests.test_strings.TruncateTest.test_long_text_ends_with_ellipsis) ... ok\r\ntest_short_text_is_unchanged (tests.test_strings.TruncateTest.test_short_text_is_unchanged) ... ok\r\ntest_tiny_width_cuts_the_ellipsis (tests.test_strings.TruncateTest.test_tiny_width_cuts_the_ellipsis) ... ok\r\n\r\n----------------------------------------------------------------------\r\nRan 4 tests in 0.000s\r\n\r\nOK\nShell cwd was reset to C:/RUN\\project"
+  }
+ ]
+}

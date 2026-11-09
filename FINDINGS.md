@@ -5,6 +5,23 @@ claims optimal skills, guaranteed obedience or accuracy gains. Credit: the
 knowledge evidence is Nikolay Petrov's, measured with Intel's dokimi, on
 Jesse Vincent/obra's Superpowers (see [README](README.md#credit-and-thanks)).
 
+## Final summary (2026-11-08): reusable workflow; TDD screening closed
+
+- **Deliverable:** [workflow/](workflow/README.md), a plugin-free way to select,
+  deliver and evaluate per-model skill variants through AP, with full upstream
+  content as the default.
+  - Released AP 0.19.4 is verified locally with no model calls: exact-model
+    routing, fallback for unlisted, near-miss and unstated models, delivered
+    text, full resource export, and rollback.
+  - The gaps are stated in the [GUIDE](workflow/GUIDE.md#not-demonstrated-by-this-project-gaps-stated-plainly).
+- **TDD compaction for Sonnet 5.5** (`apsp-tdd-001`, §8): stage 1 PROCEED.
+  - No observed regression in the screening suite, under the accepted
+    adjudication rules: 18/21 vs 18/21, all 21 paired reps tied.
+  - 9.31% fewer total execution tokens.
+  - Stage 2 was not funded; the candidate is **not adopted**.
+- **No variant of any skill is adopted.** Every model stays on full upstream
+  7.0.2.
+
 ## Summary at the close of the first slice (2026-11-08)
 
 Two different candidates failed for different reasons. Neither is adopted,
@@ -170,9 +187,55 @@ Opus graders. Report:
   execution provenance instead.
 - Cost, API-equivalent and not billing: children ≈ $6.31, graders ≈ $4.31.
 
+## 8. TDD compaction for Sonnet 5.5 (`apsp-tdd-001`, closed 2026-11-08)
+
+Full record: [CLOSEOUT](experiments/tdd-compaction/CLOSEOUT.md) and
+[stage-1 results](experiments/tdd-compaction/stage1/RESULTS.md). Each item
+below is labeled with its evidence class.
+
+- **Source and packaging (verified):**
+  - The baseline is byte-exact upstream v7.0.2 (blobs `46838cc9`,
+    `d3c4482f`, `abf03903`).
+  - The candidate changes `SKILL.md` only (−2,553 bytes): the diagram and
+    worked examples are removed, and one condition is extracted. Every rule,
+    rationalization row, red flag and checklist item is kept.
+  - `check_package.py --compare` confirms that only `SKILL.md` and
+    `package.yaml` differ.
+- **Knowledge (Petrov/dokimi):** used as leads for candidate generation only.
+  The change map labels each capability-dependent cut.
+- **Delivery (verified, AP 0.19.4, no model calls):** see the final summary
+  above. During the trial, every child's transcript showed its own arm's text.
+  Isolation was checked from `init` on all 46 child and 9 grader runs.
+- **Behavior (screening):**
+  - 7 cases × 2 arms × 3 reps, 42 valid runs.
+  - Accepted interpretation (operator gate): 18/21 vs 18/21, all paired reps
+    tied; Gr1 24/24.
+  - Official frozen scores (12 vs 14) are kept for provenance. The difference
+    comes from documented capture and fixture defects, and from gate rulings
+    on R5 and R6.
+  - **Shared gaps** (identical text in both arms):
+    - no run asked before the configuration-file exception (R6);
+    - under explicit permission, every run skipped tests and disclosed it (R5,
+      compliant under the accepted permission reading).
+  - **Not established:** equivalence, held-out performance, discovery
+    delivery, other models or hosts.
+- **Cost:**
+  - total execution tokens −9.31%: all four categories, mostly the smaller
+    prompt re-read each request;
+  - reported cost $0.752 vs $0.689 (API-equivalent; the actual use was
+    subscription allowance);
+  - experiment total: children and graders $2.71; the coordinator's
+    build-and-run window about 24.7M tokens. The audit and closeout sessions
+    were not measured.
+
 ## Not done / limits
 
 - Haiku 5.5: no candidate (unchanged baseline), so no pair was run.
+- `apsp-tdd-001` stage 2 (held-out confirmation) was designed but not funded.
+  Discovery delivery was not tested: the AP plugin adapter is unreleased, and
+  `--safe-mode` with `--plugin-dir` did not list the skill.
+- `apsp-sd-001` was prepared but never run, and was not re-reviewed after
+  Ponytail was removed.
 - Opus, Sol: not covered by knowledge evidence and not tested.
 - The evaluation is single-turn; scripted history replaces a live user. Multi-turn
   gate behavior, builder-check dispatch and visual-companion use were not

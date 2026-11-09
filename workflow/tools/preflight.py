@@ -1,0 +1,244 @@
+"""Isolation preflight for one arm of a comparison run. No model request is made.
+
+Covers more than "no plugins":
+  global   global/project instruction files (CLAUDE.md, AGENTS.md) reachable from the run cwd or
+           the user config, and whether the launch flags neutralize them;
+  hooks    hook definitions in user/project settings files;
+  dupes    other installations of the same skill (by frontmatter name or by content hash of
+           either arm) in user skills, plugin caches/synced/marketplace trees, project .claude,
+           and ~/.agents/skills;
+  arm      the delivered context contains this arm's SKILL.md exactly and not the other arm's;
+           no file under the run directory contains the other arm's SKILL.md; the run directory
+           is outside every --forbid root (e.g. the repository holding both arms);
+  env      environment variables that would leak host session state into a child unless the
+           launcher scrubs them;
+  init     (Claude Code adapter, optional --probe) launch the exact child argv, read the
+           stream-json `init` event, and stop the process before any assistant output. Checks
+           model, tools, MCP servers, skills, slash commands, non-built-in plugins, permission
+           mode, and deny-listed terms (default: ponytail).
+Other hosts: pass --init-json with your host's equivalent session description, or skip `init`
+and rely on the static checks, stating that limitation in the report.
+
+Usage:
+  python -I preflight.py --run-dir D --context D/context.md --arm-skill A/SKILL.md
+         [--other-skill B/SKILL.md] [--skill-name test-driven-development]
+         [--forbid REPO] [--probe --model M --tools Bash,Edit,... --claude-flag=--safe-mode ...]
+         [--expect-tools ...] [--out report.json]
+Exit 1 if any check fails.
+"""
+import argparse
+import hashlib
+import json
+import os
+import re
+import shutil
+import subprocess
+import sys
+import time
+from pathlib import Path
+
+LEAK_ENV = re.compile(r"^(CLAUDECODE$|CLAUDE_|T3CODE_|AGENT_PROFILES_|ANTHROPIC_)")
+NEUTRALIZING = {"--safe-mode": ["global", "hooks", "dupes"], "--bare": ["global", "hooks", "dupes"]}
+
+
+def sha_text(t):
+    return hashlib.sha256(t.encode("utf-8")).hexdigest()
+
+
+def frontmatter_name(p):
+    try:
+        head = p.read_text(encoding="utf-8", errors="replace")[:600]
+    except OSError:
+        return None
+    m = re.search(r"^---\s*\n(.*?)\n---", head, re.S)
+    if not m:
+        return None
+    n = re.search(r"^name:\s*\"?([^\"\n]+)\"?\s*$", m.group(1), re.M)
+    return n.group(1).strip() if n else None
+
+
+def config_dir():
+    return Path(os.environ.get("CLAUDE_CONFIG_DIR") or Path.home() / ".claude")
+
+
+def parents(p):
+    p = Path(p).resolve()
+    return [p, *p.parents]
+
+
+def static_checks(a, arm_text, other_text):
+    out = {}
+    cfg = config_dir()
+    flags = set(a.claude_flag or [])
+    neutral = {k for f in flags for k in NEUTRALIZING.get(f, [])}
+
+    # global instructions
+    found = [str(p) for p in dict.fromkeys(
+        q.resolve() for q in [cfg / "CLAUDE.md", *[d / n for d in parents(a.run_dir) for n in ("CLAUDE.md", "AGENTS.md")]])
+        if p.exists()]
+    out["global"] = {"files": found, "neutralized_by_flags": "global" in neutral,
+                     "ok": not found or "global" in neutral}
+
+    # hooks
+    hook_files = []
+    candidates = [cfg / "settings.json", cfg / "settings.local.json",
+                  *[d / ".claude" / n for d in parents(a.run_dir) for n in ("settings.json", "settings.local.json")]]
+    for s in dict.fromkeys(p.resolve() for p in candidates):
+        if s.exists():
+            try:
+                if json.loads(s.read_text(encoding="utf-8")).get("hooks"):
+                    hook_files.append(str(s))
+            except ValueError:
+                hook_files.append(f"{s} (unparseable)")
+    out["hooks"] = {"files_with_hooks": hook_files, "neutralized_by_flags": "hooks" in neutral,
+                    "ok": not hook_files or "hooks" in neutral}
+
+    # duplicate skill installations
+    hashes = {sha_text(arm_text)} | ({sha_text(other_text)} if other_text else set())
+    roots = [cfg / "skills", cfg / "plugins", Path.home() / ".agents" / "skills",
+             *[d / ".claude" / "skills" for d in parents(a.run_dir)]]
+    dupes = []
+    for r in roots:
+        if not r.exists():
+            continue
+        for sk in r.rglob("SKILL.md"):
+            if ".trash" in sk.parts:
+                continue
+            same_name = frontmatter_name(sk) == a.skill_name
+            same_bytes = sha_text(sk.read_text(encoding="utf-8", errors="replace")) in hashes
+            if same_name or same_bytes:
+                dupes.append({"path": str(sk), "same_name": same_name, "same_bytes_as_an_arm": same_bytes})
+    out["dupes"] = {"installations": dupes, "neutralized_by_flags": "dupes" in neutral,
+                    "ok": not dupes or "dupes" in neutral,
+                    "note": "neutralization by flags is confirmed only by the init probe (skills: [])"}
+
+    # arm content and other-arm access
+    ctx = Path(a.context).read_text(encoding="utf-8")
+    arm = {"context_contains_arm_skill": arm_text.strip() in ctx,
+           "context_free_of_other_arm": (other_text.strip() not in ctx) if other_text else None,
+           "other_arm_files_in_run_dir": [], "run_dir_inside_forbidden_root": []}
+    if other_text:
+        for f in Path(a.run_dir).rglob("*"):
+            if f.is_file() and f.stat().st_size < 5_000_000:
+                try:
+                    if other_text.strip() in f.read_text(encoding="utf-8", errors="ignore"):
+                        arm["other_arm_files_in_run_dir"].append(str(f))
+                except OSError:
+                    pass
+    rd = Path(a.run_dir).resolve()
+    for fr in a.forbid or []:
+        frp = Path(fr).resolve()
+        if rd == frp or frp in rd.parents:
+            arm["run_dir_inside_forbidden_root"].append(str(frp))
+    arm["ok"] = (arm["context_contains_arm_skill"] and arm["context_free_of_other_arm"] is not False
+                 and not arm["other_arm_files_in_run_dir"] and not arm["run_dir_inside_forbidden_root"])
+    out["arm"] = arm
+
+    # environment leakage
+    leaks = sorted(k for k in os.environ if LEAK_ENV.match(k))
+    out["env"] = {"variables_to_scrub": leaks, "pattern": LEAK_ENV.pattern,
+                  "ok": True, "note": "informational: the launcher must remove these from the child environment"}
+    return out
+
+
+def init_probe(a):
+    exe = shutil.which("claude")
+    if not exe:
+        return {"ok": False, "error": "claude CLI not found"}
+    argv = [exe, "-p", "--model", a.model, *(a.claude_flag or []), "--append-system-prompt-file", str(a.context),
+            "--tools", a.tools, "--output-format", "stream-json", "--verbose", "--include-hook-events",
+            "Reply with exactly: ok"]
+    env = {k: v for k, v in os.environ.items() if not LEAK_ENV.match(k)}
+    p = subprocess.Popen(argv, cwd=a.run_dir, env=env, stdout=subprocess.PIPE, stderr=subprocess.PIPE,
+                         stdin=subprocess.DEVNULL)
+    events, init, t0 = [], None, time.time()
+    for line in p.stdout:
+        try:
+            ev = json.loads(line)
+        except ValueError:
+            continue
+        events.append(ev)
+        if ev.get("type") == "system" and ev.get("subtype") == "init":
+            init = ev
+            break
+        if time.time() - t0 > 60:
+            break
+    p.kill()
+    p.wait()
+    return evaluate_init(init, events, a)
+
+
+def evaluate_init(init, events, a):
+    if init is None:
+        return {"ok": False, "error": "no init event"}
+    expect_tools = sorted((a.expect_tools or a.tools).split(","))
+    deny = [t.lower() for t in (a.deny or ["ponytail"])]
+    blob = json.dumps(events).lower()
+    problems = []
+    if a.model and init.get("model") != a.model:
+        problems.append(f"model {init.get('model')} != {a.model}")
+    if sorted(init.get("tools") or []) != expect_tools:
+        problems.append(f"tools {init.get('tools')} != {expect_tools}")
+    if init.get("mcp_servers"):
+        problems.append("MCP servers present")
+    if init.get("skills"):
+        problems.append(f"skills listed: {init.get('skills')}")
+    if init.get("slash_commands"):
+        problems.append("slash commands present")
+    nb = [x.get("name") for x in init.get("plugins") or [] if x.get("path") != "builtin"]
+    if nb:
+        problems.append(f"non-built-in plugins: {nb}")
+    hooks = [e.get("subtype") for e in events if e.get("type") == "system" and "hook" in str(e.get("subtype", "")).lower()]
+    if hooks:
+        problems.append(f"hook events: {hooks}")
+    hits = [t for t in deny if t in blob]
+    if hits:
+        problems.append(f"deny-listed terms present: {hits}")
+    return {"ok": not problems, "problems": problems,
+            "observed": {k: init.get(k) for k in ("model", "tools", "mcp_servers", "skills", "slash_commands",
+                                                  "permissionMode", "claude_code_version")},
+            "builtin_plugins": [x.get("name") for x in init.get("plugins") or [] if x.get("path") == "builtin"]}
+
+
+def main(argv=None):
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--run-dir", required=True)
+    ap.add_argument("--context", required=True)
+    ap.add_argument("--arm-skill", required=True)
+    ap.add_argument("--other-skill")
+    ap.add_argument("--skill-name", default="test-driven-development")
+    ap.add_argument("--forbid", action="append")
+    ap.add_argument("--probe", action="store_true")
+    ap.add_argument("--init-json")
+    ap.add_argument("--model")
+    ap.add_argument("--tools", default="Bash,Edit,Glob,Grep,Read,Write")
+    ap.add_argument("--expect-tools")
+    ap.add_argument("--claude-flag", action="append")
+    ap.add_argument("--deny", action="append")
+    ap.add_argument("--out")
+    a = ap.parse_args(argv)
+    arm_text = Path(a.arm_skill).read_text(encoding="utf-8")
+    other_text = Path(a.other_skill).read_text(encoding="utf-8") if a.other_skill else None
+    rep = {"tool": "preflight", "checks": static_checks(a, arm_text, other_text)}
+    if a.init_json:
+        data = json.loads(Path(a.init_json).read_text(encoding="utf-8"))
+        rep["checks"]["init"] = evaluate_init(data, [data], a)
+    elif a.probe:
+        rep["checks"]["init"] = init_probe(a)
+    else:
+        rep["checks"]["init"] = {"ok": None, "note": "not probed; static checks only"}
+    # with neutralizing flags, static findings pass only if the init probe confirms them
+    for k in ("global", "hooks", "dupes"):
+        c = rep["checks"][k]
+        if c.get("neutralized_by_flags") and (c.get("files") or c.get("files_with_hooks") or c.get("installations")):
+            c["ok"] = rep["checks"]["init"].get("ok") is True
+    rep["ok"] = all(c.get("ok") is not False for c in rep["checks"].values()) and rep["checks"]["init"].get("ok") is not False
+    text = json.dumps(rep, indent=1)
+    if a.out:
+        Path(a.out).write_text(text + "\n", encoding="utf-8")
+    print(text)
+    return 0 if rep["ok"] else 1
+
+
+if __name__ == "__main__":
+    sys.exit(main())

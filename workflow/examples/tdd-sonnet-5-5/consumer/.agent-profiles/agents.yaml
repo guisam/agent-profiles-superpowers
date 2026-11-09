@@ -1,0 +1,31 @@
+version: 3
+default_profile: base
+default_role: implementer
+# Known models fall back to the full upstream content through the default binding.
+# A model that is not listed here, or not stated, gets the default profile and
+# therefore the default binding too.
+models:
+  claude-sonnet-5-5: {profile: base}
+  claude-haiku-5-5: {profile: base}
+  claude-opus-5-5: {profile: base}
+families: {}
+roles:
+  implementer:
+    file: roles/implementer.md
+    skills:
+      required: [test-driven-development]
+      available: []
+skills:
+  # Default: full upstream content for every model.
+  test-driven-development:
+    package: "@apsp/test-driven-development-upstream"
+    version: "7.0.2"
+# Opt-in: exactly one model, exactly one role, gets the candidate.
+# Rollback: delete this block (or use agents.rollback.yaml) and run `install`.
+assignments:
+  sonnet-5-5-candidate:
+    when: {model: claude-sonnet-5-5, role: implementer}
+    bindings:
+      skills.test-driven-development:
+        package: "@apsp/test-driven-development-sonnet-5-5"
+        version: "0.1.0"

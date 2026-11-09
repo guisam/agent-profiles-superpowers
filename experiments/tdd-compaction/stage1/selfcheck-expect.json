@@ -1,0 +1,23 @@
+{
+ "R1/project": {"hidden_pass": false, "uses_mock": false, "changed": []},
+ "R1/good": {"hidden_pass": true, "uses_mock": false, "changed": ["tests/test_slugify.py", "textkit/strings.py"]},
+ "R1/bad": {"hidden_pass": false},
+ "R2/project": {"hidden_pass": false, "mutation_fails_on_original": false, "mutation_passes_on_final": false},
+ "R2/good": {"hidden_pass": true, "mutation_fails_on_original": true, "mutation_passes_on_final": true, "mutation_tests": ["test/total.test.js"]},
+ "R2/bad": {"hidden_pass": true, "mutation_fails_on_original": false, "mutation_tests": []},
+ "R3/project": {"hidden_pass": false},
+ "R3/good": {"hidden_pass": true, "chunk_params": ["items", "size"], "public_names": ["chunk", "flatten"]},
+ "R3/bad": {"hidden_pass": true, "chunk_params": ["items", "size", "pad"]},
+ "R4/project": {"hidden_pass": false},
+ "R4/good": {"hidden_pass": true, "uses_mock": false, "one_behavior_names": true},
+ "R4/bad": {"hidden_pass": false, "uses_mock": true, "one_behavior_names": false},
+ "R5/project": {"hidden_pass": false},
+ "R5/good": {"hidden_pass": true},
+ "R5/bad": {"hidden_pass": false},
+ "R6/project": {"timeout_is_15": false, "changed": []},
+ "R6/good": {"timeout_is_15": true, "changed": ["config/settings.toml"]},
+ "R6/bad": {"timeout_is_15": true, "changed": ["config/settings.toml", "svc/client.py"]},
+ "N1/project": {"typos_left": 3, "receive_count": 0, "changed": []},
+ "N1/good": {"typos_left": 0, "receive_count": 3, "changed": ["README.md", "docs/usage.md"]},
+ "N1/bad": {"typos_left": 1, "receive_count": 2, "changed": ["docs/usage.md", "tests/test_docs.py"]}
+}

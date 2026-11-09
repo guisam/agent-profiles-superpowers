@@ -1,0 +1,77 @@
+{
+ "$schema": "https://json-schema.org/draft/2020-12/schema",
+ "$id": "apsp-results/1",
+ "title": "Sanitized controlled-campaign results (one campaign = one configuration)",
+ "description": "Shareable results for a baseline/candidate comparison. Contains no prompts, source code, transcripts, commands, file paths, session or account identifiers, or credentials. One file describes exactly one configuration; results from different models, hosts, AP versions, skill hashes, delivery routes or settings are never pooled into one file.",
+ "type": "object",
+ "required": ["schema", "campaign", "configuration", "arms", "runs", "summary", "decision", "privacy"],
+ "properties": {
+  "schema": {"const": "apsp-results/1"},
+  "campaign": {
+   "type": "object",
+   "required": ["id", "suite", "suite_kind", "freeze_sha256", "reps_per_arm", "order"],
+   "properties": {
+    "id": {"type": "string"},
+    "suite": {"type": "string"},
+    "suite_kind": {"enum": ["screening", "held-out"]},
+    "freeze_sha256": {"type": "string"},
+    "reps_per_arm": {"type": "integer"},
+    "order": {"type": "string"},
+    "amendments": {"type": "array", "items": {"type": "object", "required": ["id", "timing", "scope"]}}
+   }
+  },
+  "configuration": {
+   "type": "object",
+   "required": ["model", "host", "host_version", "os", "ap_version", "delivery_route", "launch_flags", "effort", "tools", "isolation"],
+   "properties": {
+    "model": {"type": "string", "description": "exact model ID as launched; never inferred from behavior"},
+    "host": {"type": "string"},
+    "host_version": {"type": "string"},
+    "os": {"type": "string"},
+    "ap_version": {"type": "string"},
+    "delivery_route": {"type": "string"},
+    "launch_flags": {"type": "array", "items": {"type": "string"}},
+    "effort": {"type": ["string", "null"]},
+    "tools": {"type": "array", "items": {"type": "string"}},
+    "isolation": {"type": "object"}
+   }
+  },
+  "arms": {
+   "type": "object",
+   "description": "arm label -> identity",
+   "additionalProperties": {
+    "type": "object",
+    "required": ["package", "ap_digest", "skill_sha256", "delivered_context_sha256"],
+    "properties": {
+     "package": {"type": "string"},
+     "ap_digest": {"type": "string"},
+     "skill_sha256": {"type": "string"},
+     "delivered_context_sha256": {"type": "string"}
+    }
+   }
+  },
+  "runs": {
+   "type": "array",
+   "items": {
+    "type": "object",
+    "required": ["case", "arm", "rep", "setup_valid", "official", "accepted", "usage"],
+    "properties": {
+     "case": {"type": "string"},
+     "arm": {"type": "string"},
+     "rep": {"type": "integer"},
+     "setup_valid": {"type": "boolean"},
+     "termination": {"type": ["string", "null"]},
+     "official": {"type": "object", "required": ["M", "all_M"]},
+     "accepted": {"type": "object", "required": ["M", "all_M", "changes"]},
+     "tool_calls": {"type": ["integer", "null"]},
+     "num_turns": {"type": ["integer", "null"]},
+     "usage": {"type": ["object", "null"], "description": "token counts by category; null = missing (never 0)"},
+     "cost_usd_reported": {"type": ["number", "null"]}
+    }
+   }
+  },
+  "summary": {"type": "object"},
+  "decision": {"type": "object", "required": ["official", "accepted"]},
+  "privacy": {"type": "object", "required": ["excluded"]}
+ }
+}

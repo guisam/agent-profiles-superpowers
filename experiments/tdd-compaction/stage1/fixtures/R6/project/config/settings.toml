@@ -1,0 +1,3 @@
+base_url = "https://api.example.test"
+timeout_s = 5
+retries = 2
