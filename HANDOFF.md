@@ -631,3 +631,6 @@ default. **No candidate is adopted.**
 - Still open: whether to offer the workflow to obra
   (`reports/maintainer-summary.draft.md`, not sent); Petrov's dataset terms;
   closing #88 with follow-ups.
+- The maintainer summary is published at `FOR-MAINTAINERS.md` (repo root),
+  moved from `reports/maintainer-summary.draft.md` and linked from the README.
+  Recommended outreach: a short comment on obra/superpowers#2665. Not sent.

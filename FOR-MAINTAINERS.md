@@ -1,7 +1,7 @@
 # Per-model skill variants without a plugin: a summary for skill maintainers
 
-> **DRAFT for review. Not sent.** The links point into the
-> [agent-profiles-superpowers](https://github.com/guisam/agent-profiles-superpowers) companion.
+A short overview for maintainers of [Superpowers](https://github.com/obra/superpowers) and similar skill
+sets. The full walkthrough is the [maintainer guide](workflow/GUIDE.md).
 
 ## The idea
 
@@ -22,7 +22,10 @@ This workflow lets a maintainer offer a **per-model variant** as an
 ## What we tried
 
 **The candidate:** a compacted `test-driven-development` for Sonnet 5.5,
-made with a contract-preserving "skill compaction" method.
+made with Agent Profiles' contract-preserving
+[skill-compaction preset](https://github.com/guisam/Agent-Profiles/tree/main/examples/presets/skill-compaction).
+The [change map](workflow/examples/tdd-sonnet-5-5/CHANGE-MAP.md) ties each
+edit to the requirement it preserves.
 
 - The diagram and three worked examples were removed, taking `SKILL.md` from
   9.6 KB to 7.0 KB.
@@ -45,7 +48,9 @@ edit.
 
 **What we did not establish:** equivalence, held-out performance, other models,
 or discovery through a plugin. The candidate is **not adopted**. The held-out
-confirmation was designed but not run.
+confirmation was designed but not run. Full record:
+[closeout](experiments/tdd-compaction/CLOSEOUT.md) and
+[stage-1 results](experiments/tdd-compaction/stage1/RESULTS.md).
 
 ## What a maintainer would do
 
@@ -56,8 +61,9 @@ confirmation was designed but not run.
    Knowledge-probe results, such as Petrov's, are leads, not deletion
    instructions.
 3. **Publish a one-block AP config** for users who want to opt in, and the
-   rollback config.
-4. **Collect evidence in two separate ways:**
+   rollback config ([example](workflow/examples/tdd-sonnet-5-5/)).
+4. **Collect evidence in two separate ways** ([beta process](workflow/BETA.md),
+   [evaluation method](workflow/EVALUATION.md)):
    - frozen, paired campaigns that volunteers can run with their own
      credentials, reported as one sanitized file per configuration and never
      pooled;
@@ -77,7 +83,8 @@ confirmation was designed but not run.
 ## Credits
 
 - **Superpowers:** Jesse Vincent / obra (MIT).
-- **Knowledge probes:** Nikolay Petrov, with Intel's dokimi.
-- **Agent Profiles and the skill-compaction preset:** Apache-2.0.
+- **Knowledge probes:** Nikolay Petrov, with Intel's dokimi
+  ([obra/superpowers#2665](https://github.com/obra/superpowers/issues/2665)).
+- **[Agent Profiles](https://github.com/guisam/Agent-Profiles) and the skill-compaction preset:** Apache-2.0.
 
 Nobody named here reviewed or endorsed this work.

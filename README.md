@@ -20,6 +20,9 @@ isolation preflight, a campaign planner, a sanitized results format and an
 opt-in beta process. The worked example is the TDD Sonnet 5.5 candidate
 ([GUIDE](workflow/GUIDE.md)).
 
+**Maintaining a skill set?** Read the one-page
+[summary for maintainers](FOR-MAINTAINERS.md) first.
+
 | Experiment | Treatment | Outcome |
 | --- | --- | --- |
 | `apsp-bs-001` | **Shortening**: delete 221 bytes judged redundant for Sonnet | Candidate rejected for **lack of benefit**. The original "one must-pass regression" (C02) was withdrawn in audit. |

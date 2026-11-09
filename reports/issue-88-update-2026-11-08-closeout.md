@@ -158,7 +158,7 @@ template.
 ### Still open
 
 1. Whether to offer the workflow to obra/Superpowers. A maintainer summary is
-   drafted in the companion (`reports/maintainer-summary.draft.md`); nothing
+   in the companion ([FOR-MAINTAINERS.md](https://github.com/guisam/agent-profiles-superpowers/blob/main/FOR-MAINTAINERS.md)); nothing
    has been sent.
 2. Petrov's dataset terms. It is still linked only, not copied.
 3. Whether to close this issue, with `writing-plans`/`writing-skills`
