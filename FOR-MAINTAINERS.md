@@ -112,10 +112,11 @@ for each agent, and that's what Agent Profiles does.
 
 ## Honest limits of the tooling today
 
-- Agent Profiles 0.19.4 routes by the model ID the host states. It does not
-  detect the model.
-- Delivery into a host's native skill discovery needs an AP adapter that is
-  not released yet.
+- Agent Profiles routes by the model ID the host states (verified on 0.19.4).
+  It does not detect the model.
+- Delivery into a host's native skill discovery needs AP's
+  `claude-plugin-v1` materializer, which is not released. (AP's project
+  adapter, added in 0.20.0, is a different feature.)
 - Interactive delivery through AP's instruction-file bootstrap exists, but was
   not evaluated here.
 
